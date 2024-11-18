@@ -72,6 +72,5 @@ public class PollsController(IpollService pollService) : ControllerBase
 
         return result.IsSuccess ? NoContent() : Problem(statusCode: StatusCodes.Status404NotFound, title: result.Error.Code, detail: result.Error.Description);
     }
-
 }
 

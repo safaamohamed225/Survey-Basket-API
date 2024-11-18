@@ -1,4 +1,5 @@
-﻿namespace SurveyBasket.Entities;
+﻿
+namespace SurveyBasket.Entities;
 
 public sealed class Answer 
 {
@@ -7,4 +8,9 @@ public sealed class Answer
     public bool IsActive { get; set; } = true;
     public int QuestionId { get; set; }
     public Question Question { get; set; } = default!;
+
+    public static implicit operator string(Answer v)
+    {
+        throw new NotImplementedException();
+    }
 }

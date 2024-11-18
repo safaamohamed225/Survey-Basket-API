@@ -39,6 +39,8 @@ public static class DependencyInjection
 
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IpollService, PollService>();
+        services.AddScoped<IQuestionService, QuestionService>();
+
 
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
