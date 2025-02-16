@@ -11,6 +11,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Answer> Answers { get; set; }
     public DbSet<Poll> Polls { get; set; }
     public DbSet<Question> Questions { get; set; }
+    public DbSet<Vote> Votes { get; set; }
+    public DbSet<VoteAnswer> VoteAnswers { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     { 
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -26,7 +28,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     }
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var currentUserId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        var currentUserId = _httpContextAccessor.HttpContext?.User.GetUserId()!;
         var entries = ChangeTracker.Entries<AuditableEntity>();
         foreach(var entityEntries in entries)
         {
