@@ -33,5 +33,5 @@ The project follows a clean architecture and is organized into:
 - **Services** – Business logic and core operations.
 - **Repositories** – Encapsulates data access logic.
 - **Middleware** – Custom middleware for handling exceptions, logging, etc.
-- ** Program.cs** - App entry point and configurations
+- **Program.cs** - App entry point and configurations
 
