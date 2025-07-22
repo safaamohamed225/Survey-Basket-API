@@ -2,7 +2,7 @@
 
 public interface IJwtProvider
 {
-    (string token, int expillresIn) GenerateToken(ApplicationUser user);
+    (string token, int expiresIn) GenerateToken(ApplicationUser user);
 
     string? ValidateToken(string token);
 }

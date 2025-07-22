@@ -17,13 +17,7 @@ public class QuestionService(ApplicationDbContext context) : IQuestionService
         var questions = await _context.Questions
             .Where(x => x.PollId == pollId)
             .Include(x => x.Answers)
-            //.Select(q => new QuestionResponse
-            //(
-            //    q.Id,
-            //    q.Content,
-            //    q.Answers.Select(a=>new AnswerResponse(a.Id, a.Content))
-            //))
-            .ProjectToType <QuestionResponse>()
+            .ProjectToType<QuestionResponse>()
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
@@ -62,7 +56,7 @@ public class QuestionService(ApplicationDbContext context) : IQuestionService
               (
                   q.Id,
                   q.Content,
-                  q.Answers.Where(a=> a.IsActive).Select(a=> new Contracts.Answers.AnswerResponse(a.Id, a.Content))
+                  q.Answers.Where(a => a.IsActive).Select(a => new Contracts.Answers.AnswerResponse(a.Id, a.Content))
               )).AsNoTracking().ToListAsync(cancellationToken);
         return Result.Success<IEnumerable<QuestionResponse>>(questions);
     }
@@ -74,8 +68,8 @@ public class QuestionService(ApplicationDbContext context) : IQuestionService
         if (!pollIsExists)
             return Result.Failure<QuestionResponse>(PollErrors.PollNotFound);
 
-        var questionIsExists=await _context.Questions.AnyAsync(x =>x.Content == request.Content && x.PollId == pollId, cancellationToken);
-        if(questionIsExists)
+        var questionIsExists = await _context.Questions.AnyAsync(x => x.Content == request.Content && x.PollId == pollId, cancellationToken);
+        if (questionIsExists)
             return Result.Failure<QuestionResponse>(QuestionErrors.DuplicatedQuestionContent);
 
         var question = request.Adapt<Question>();
@@ -101,7 +95,7 @@ public class QuestionService(ApplicationDbContext context) : IQuestionService
             .Include(x => x.Answers)
             .SingleOrDefaultAsync(x => x.PollId == pollId && x.Id == id, cancellationToken);
 
-        if(question is null)
+        if (question is null)
             return Result.Failure(QuestionErrors.QuestionNotFound);
 
         question.Content = request.Content;
@@ -128,7 +122,7 @@ public class QuestionService(ApplicationDbContext context) : IQuestionService
     }
     public async Task<Result> ToggleStatusAsync(int pollId, int id, CancellationToken cancellationToken = default)
     {
-        var question = await _context.Questions.SingleOrDefaultAsync(x=>x.PollId ==pollId && x.Id ==id, cancellationToken); 
+        var question = await _context.Questions.SingleOrDefaultAsync(x => x.PollId == pollId && x.Id == id, cancellationToken);
 
         if (question is null)
             return Result.Failure(QuestionErrors.QuestionNotFound);

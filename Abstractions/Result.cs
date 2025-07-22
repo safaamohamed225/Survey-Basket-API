@@ -11,10 +11,10 @@ public class Result
         Error = error;
     }
     public bool IsSuccess { get; }
-    public bool IsFailure =>!IsSuccess;
+    public bool IsFailure => !IsSuccess;
     public Error Error { get; } = default!;
 
-    public static Result Success()=>new (true, Error.None);
+    public static Result Success() => new(true, Error.None);
     public static Result Failure(Error error) => new(false, error);
 
     public static Result<TValue> Success<TValue>(TValue value) => new(value, true, Error.None);
@@ -24,12 +24,12 @@ public class Result
 public class Result<TValue> : Result
 {
     private readonly TValue? _value;
-    public Result(TValue? value, bool isSuccess, Error error):base(isSuccess, error)
+    public Result(TValue? value, bool isSuccess, Error error) : base(isSuccess, error)
     {
         _value = value;
     }
 
-    public TValue? Value =>IsSuccess
+    public TValue? Value => IsSuccess
         ? _value
         : throw new InvalidOperationException("Failure result cannot have any value!");
 }
