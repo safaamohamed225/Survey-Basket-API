@@ -35,3 +35,14 @@ The project follows a clean architecture and is organized into:
 - **Middleware** – Custom middleware for handling exceptions, logging, etc.
 
 
+SurveyBasket.Api/
+│
+├── Controllers/ # API endpoints
+├── Models/ # Entity and DTO classes
+├── Data/ # EF Core DbContext & configurations
+├── Services/ # Business logic
+├── Repositories/ # Data access logic
+├── Middleware/ # Custom middleware (e.g., error handling)
+└── Program.cs # App entry point and configurations
+
+
