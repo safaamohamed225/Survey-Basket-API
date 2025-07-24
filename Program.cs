@@ -5,6 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDependencies(builder.Configuration);
+
+builder.Services.AddResponseCaching();
+
 builder.Host.UseSerilog((context, configuration) =>
 
 configuration.ReadFrom.Configuration(context.Configuration)
@@ -23,6 +26,7 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();
+app.UseResponseCaching();
 
 app.MapControllers();
 
