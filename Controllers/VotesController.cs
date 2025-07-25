@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.OutputCaching;
 using SurveyBasket.Contracts.Votes;
 
 namespace SurveyBasket.Controllers;
@@ -12,7 +13,7 @@ public class VotesController(IQuestionService questionService, IVoteService vote
     private readonly IVoteService _voteService = voteService;
 
     [HttpGet("")]
-    [ResponseCache(Duration =60)]
+    [OutputCache(PolicyName ="Polls")]
     public async Task<IActionResult> Start([FromRoute] int pollId, CancellationToken cancellationToken)
     {
         var userId = "426fcde1-88e1-4e27-8788-dcec2acb2488"; //User.GetUserId();

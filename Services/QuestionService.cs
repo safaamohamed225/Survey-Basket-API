@@ -1,12 +1,15 @@
-﻿using SurveyBasket.Contracts.Answers;
+﻿using Microsoft.AspNetCore.OutputCaching;
+using SurveyBasket.Contracts.Answers;
 using SurveyBasket.Contracts.Questions;
 using System.Threading;
 
 namespace SurveyBasket.Services;
 
-public class QuestionService(ApplicationDbContext context) : IQuestionService
+public class QuestionService(ApplicationDbContext context, IOutputCacheStore outputCacheStore) : IQuestionService
 {
     private readonly ApplicationDbContext _context = context;
+    private readonly IOutputCacheStore _outputCacheStore = outputCacheStore;
+
     public async Task<Result<IEnumerable<QuestionResponse>>> GetAllAsync(int pollId, CancellationToken cancellationToken)
     {
         var pollIsExists = await _context.Polls.AnyAsync(x => x.Id == pollId, cancellationToken);
@@ -78,6 +81,8 @@ public class QuestionService(ApplicationDbContext context) : IQuestionService
         await _context.AddAsync(question, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 
+        await _outputCacheStore.EvictByTagAsync("AvailableQuestion", cancellationToken);
+
         return Result.Success(question.Adapt<QuestionResponse>());
     }
 
@@ -117,6 +122,7 @@ public class QuestionService(ApplicationDbContext context) : IQuestionService
         });
 
         await _context.SaveChangesAsync(cancellationToken);
+        await _outputCacheStore.EvictByTagAsync("AvailableQuestion", cancellationToken);
 
         return Result.Success();
     }
@@ -130,7 +136,7 @@ public class QuestionService(ApplicationDbContext context) : IQuestionService
         question.IsActive = !question.IsActive;
 
         await _context.SaveChangesAsync(cancellationToken);
-
+        await _outputCacheStore.EvictByTagAsync("AvailableQuestion", cancellationToken);
         return Result.Success();
     }
 }
