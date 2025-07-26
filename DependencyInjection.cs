@@ -16,6 +16,7 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         services.AddControllers();
+        services.AddHybridCache();
 
         services.AddCors(options =>
             options.AddDefaultPolicy(builder =>
@@ -44,7 +45,8 @@ public static class DependencyInjection
         services.AddScoped<IQuestionService, QuestionService>();
         services.AddScoped<IVoteService, VoteService>();
         services.AddScoped<IResultService, ResultService>();
-        services.AddScoped<ICacheService, CacheService>();
+        //services.AddScoped<ICacheService, CacheService>();
+
 
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
