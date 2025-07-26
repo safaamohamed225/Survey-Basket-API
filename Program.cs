@@ -5,13 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDependencies(builder.Configuration);
-
-builder.Services.AddOutputCache(options =>
-{
-    options.AddPolicy("Polls", x => x.Cache()
-    .Expire(TimeSpan.FromSeconds(120))
-    .Tag("AvailableQuestion"));
-});
+builder.Services.AddDistributedMemoryCache();
 
 builder.Host.UseSerilog((context, configuration) =>
 
@@ -31,7 +25,6 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();
-app.UseOutputCache();
 
 app.MapControllers();
 
