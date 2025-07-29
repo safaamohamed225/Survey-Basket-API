@@ -101,6 +101,39 @@ public class AuthService(UserManager<ApplicationUser> userManager, IJwtProvider 
         return Result.Success();
     }
 
+    public async Task<Result<AuthResponse>> RegisterAsync(RegisterRequest requet, CancellationToken cancellationToken=default)
+    {
+        var emailExists = await _userManager.Users.AnyAsync(x => x.Email == requet.Email, cancellationToken);
+
+        if(emailExists)
+            return Result.Failure<AuthResponse>(UserErrors.DublicatedEmail);
+
+        var user = requet.Adapt<ApplicationUser>();
+
+        var result = await _userManager.CreateAsync(user, requet.Password);
+        if(result.Succeeded)
+        {
+            var (token, expiresIn) = _jwtProvider.GenerateToken(user);
+            var refreshToken = GenerateRefreshToken();
+            var refreshTokenExpiration = DateTime.UtcNow.AddDays(_refreshTokenExpiryDays);
+
+            user.RefreshTokens.Add(new RefreshToken
+            {
+                Token = refreshToken,
+                ExpiresOn = refreshTokenExpiration
+            });
+
+            await _userManager.UpdateAsync(user);
+
+            var response = new AuthResponse(user.Id, user.Email, user.FirstName, user.LastName, token, expiresIn, refreshToken, refreshTokenExpiration);
+
+            return Result.Success(response);
+        }
+
+        var error = result.Errors.First();
+
+        return Result.Failure<AuthResponse>(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
+    }
     private static string GenerateRefreshToken()
     {
         return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
