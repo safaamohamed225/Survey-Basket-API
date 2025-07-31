@@ -12,4 +12,13 @@ public static class UserErrors
         new("User.InvalidRefreshToken", "Invalid refresh token", StatusCodes.Status401Unauthorized);
     public static readonly Error DublicatedEmail =
         new("User.DublicatedEmail", "This email is already exists!", StatusCodes.Status409Conflict);
+
+    public static readonly Error EmailNotConfirmed =
+    new("User.EmailNotConfirmed", "Email is not confirmed", StatusCodes.Status401Unauthorized);
+
+    public static readonly Error InvalidCode =
+   new("User.InvalidCode", "Invalid code", StatusCodes.Status401Unauthorized);
+
+    public static readonly Error DuplicatedEmailConfirmation =
+   new("User.DuplicatedEmailConfirmation", "Email is already confirmed", StatusCodes.Status400BadRequest);
 }

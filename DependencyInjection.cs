@@ -1,11 +1,10 @@
-﻿using FluentValidation.AspNetCore;
-using MapsterMapper;
+﻿
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.IdentityModel.Tokens;
-using SurveyBasket.Authentication;
-using SurveyBasket.Services;
-using System.Reflection;
+
+using SurveyBasket.Settings;
+
 using System.Text;
 
 namespace SurveyBasket;
@@ -46,10 +45,14 @@ public static class DependencyInjection
         services.AddScoped<IVoteService, VoteService>();
         services.AddScoped<IResultService, ResultService>();
         //services.AddScoped<ICacheService, CacheService>();
+        services.AddScoped<IEmailSender, EmailService>();
 
 
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
+        services.AddHttpContextAccessor();
+
+        services.Configure<MailSettings>(configuration.GetSection(nameof(MailSettings)));
 
         return services;
     }
@@ -86,7 +89,8 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         services.AddIdentity<ApplicationUser, IdentityRole>()
-          .AddEntityFrameworkStores<ApplicationDbContext>();
+          .AddEntityFrameworkStores<ApplicationDbContext>()
+          .AddDefaultTokenProviders();
 
 
         services.AddSingleton<IJwtProvider, JwtProvider>();
