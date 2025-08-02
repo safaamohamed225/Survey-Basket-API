@@ -52,7 +52,7 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
     [HttpPost("resend-confirmation-email")]
     public async Task<IActionResult> ResendConfirmationEmail([FromBody] ResendConfirmationEmailRequest request)
     {
-        var resendConfirmEmail = await _authService.ResendConfirmEmailAsync(request);
+        var resendConfirmEmail = await _authService.ResendConfirmationEmailAsync(request);
 
         return resendConfirmEmail.IsSuccess ? Ok() : resendConfirmEmail.ToProblem();
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Hangfire;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.WebUtilities;
 using OneOf;
@@ -171,7 +172,7 @@ public class AuthService(UserManager<ApplicationUser> userManager,
         return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
     }
 
-    public async Task<Result> ResendConfirmEmailAsync(ResendConfirmationEmailRequest requet)
+    public async Task<Result> ResendConfirmationEmailAsync(ResendConfirmationEmailRequest requet)
     {
         if (await _userManager.FindByEmailAsync(requet.Email) is not { } user)
             return Result.Success();
@@ -203,6 +204,7 @@ public class AuthService(UserManager<ApplicationUser> userManager,
                     {"{{action_url}}", $"{origin}/auth/emailConfirmation?userId={user.Id}&code={code}"}
             });
 
-        await _emailSender.SendEmailAsync(user.Email!, "Survey Basket : Email Confirmation", emailBody);
+        BackgroundJob.Enqueue(() => _emailSender.SendEmailAsync(user.Email!, "Survey Basket : Email Confirmation", emailBody));
+        await Task.CompletedTask;
     }
 }
