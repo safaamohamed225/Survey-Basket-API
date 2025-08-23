@@ -1,7 +1,7 @@
 # SurveyBasket API 📊
 
-[![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/download)
-[![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-8.0-blue.svg)](https://docs.microsoft.com/en-us/aspnet/core/)
+[![.NET](https://img.shields.io/badge/.NET-9.0-purple.svg)](https://dotnet.microsoft.com/download)
+[![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-9.0-blue.svg)](https://docs.microsoft.com/en-us/aspnet/core/)
 [![Entity Framework](https://img.shields.io/badge/Entity%20Framework-Core-orange.svg)](https://docs.microsoft.com/en-us/ef/core/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -32,7 +32,7 @@ A robust and scalable RESTful API built with ASP.NET Core for comprehensive surv
 
 | Technology | Purpose |
 |------------|---------|
-| **ASP.NET Core 8.0** | Web API Framework |
+| **ASP.NET Core 9.0** | Web API Framework |
 | **Entity Framework Core** | ORM and Database Access |
 | **ASP.NET Core Identity** | User Management & Authentication |
 | **SQL Server** | Primary Database |
@@ -74,7 +74,7 @@ SurveyBasket.Api/
 
 ### Prerequisites
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) (LocalDB for development)
 - [Visual Studio 2022](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
 
@@ -171,10 +171,10 @@ POST /api/auth/register
 Content-Type: application/json
 
 {
-  "email": "user@example.com",
+  "email": "safa@example.com",
   "password": "SecurePassword123!",
-  "firstName": "John",
-  "lastName": "Doe"
+  "firstName": "Safa",
+  "lastName": "Muhammad"
 }
 ```
 
@@ -234,9 +234,11 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👥 Authors
+## 👩‍💻 Author
 
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/safaamohamed225)
+**Safaa Mohamed** – Initial Work & Development  
+🔗 [GitHub Profile](https://github.com/safaamohamed225)
+
 
 ## 🙏 Acknowledgments
 
@@ -251,5 +253,3 @@ If you have any questions or need help, please:
 - 📧 Email: support@surveybasket.com
 - 🐛 [Open an issue](https://github.com/safaamohamed225/SurveyBasket.Api/issues)
 - 💬 [Start a discussion](https://github.com/safaamohamed225/SurveyBasket.Api/discussions)
-
----
