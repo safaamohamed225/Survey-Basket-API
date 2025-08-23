@@ -5,15 +5,16 @@
 [![Entity Framework](https://img.shields.io/badge/Entity%20Framework-Core-orange.svg)](https://docs.microsoft.com/en-us/ef/core/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-A robust and scalable RESTful API built with ASP.NET Core for comprehensive survey management and user interactions. Features enterprise-grade security, role-based access control, and a clean architecture designed for maintainability and extensibility.
+A robust and scalable RESTful API built with ASP.NET Core for comprehensive poll management and voting systems. Features enterprise-grade security, role-based access control, and a clean architecture designed for maintainability and extensibility.
 
 ## 🌟 Key Features
 
-### 📝 Survey Management
-- **Full CRUD Operations** for surveys and responses
-- **Dynamic Survey Creation** with flexible question types
-- **Response Collection** and validation
-- **Survey Analytics** foundation for future reporting
+### 📝 Poll Management
+- **Full CRUD Operations** for polls and questions
+- **Dynamic Poll Creation** with flexible question types
+- **Vote Collection** and validation
+- **Poll Analytics** and comprehensive reporting
+- **Publish/Unpublish** polls with status management
 
 ### 🔐 Security & Authentication
 - **JWT Authentication** with refresh token support
@@ -46,8 +47,11 @@ A robust and scalable RESTful API built with ASP.NET Core for comprehensive surv
 SurveyBasket.Api/
 ├── 📂 Controllers/          # API endpoints and routing
 │   ├── AuthController.cs    # Authentication endpoints
-│   ├── SurveysController.cs # Survey management
-│   └── ResponsesController.cs # Response handling
+│   ├── PollsController.cs   # Poll management
+│   ├── QuestionsController.cs # Question management
+│   ├── VotesController.cs   # Voting endpoints
+│   ├── ResultsController.cs # Analytics and results
+│   └── AccountController.cs # User account management
 ├── 📂 Models/               # Entity models and DTOs
 │   ├── Entities/            # Database entities
 │   ├── DTOs/                # Data transfer objects
@@ -118,32 +122,60 @@ SurveyBasket.Api/
 
 ## 📖 API Documentation
 
+![Swagger UI](https://raw.githubusercontent.com/safaamohamed225/SurveyBasket.Api/main/docs/swagger-ui.png)
+
 ### Authentication Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/api/auth/register` | Register new user |
-| `POST` | `/api/auth/login` | User login |
-| `POST` | `/api/auth/refresh` | Refresh JWT token |
-| `POST` | `/api/auth/logout` | User logout |
+| `POST` | `/auth/register` | Register new user |
+| `POST` | `/auth/login` | User login |
+| `POST` | `/auth/refresh` | Refresh JWT token |
+| `POST` | `/auth/revoke-refresh-token` | Revoke refresh token |
+| `POST` | `/auth/confirm-email` | Confirm user email |
+| `POST` | `/auth/resend-confirmation-email` | Resend confirmation email |
+| `POST` | `/auth/forget-password` | Request password reset |
+| `POST` | `/auth/reset-password` | Reset user password |
 
-### Survey Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| `GET` | `/api/surveys` | Get all surveys | ✅ |
-| `GET` | `/api/surveys/{id}` | Get survey by ID | ✅ |
-| `POST` | `/api/surveys` | Create new survey | ✅ (Admin) |
-| `PUT` | `/api/surveys/{id}` | Update survey | ✅ (Admin/Owner) |
-| `DELETE` | `/api/surveys/{id}` | Delete survey | ✅ (Admin/Owner) |
-
-### Response Endpoints
+### Account Management
 
 | Method | Endpoint | Description | Auth Required |
 |--------|----------|-------------|---------------|
-| `GET` | `/api/surveys/{id}/responses` | Get survey responses | ✅ (Admin/Owner) |
-| `POST` | `/api/surveys/{id}/responses` | Submit response | ✅ |
-| `GET` | `/api/responses/{id}` | Get response by ID | ✅ |
+| `GET` | `/me` | Get current user info | ✅ |
+| `PUT` | `/me/info` | Update user profile | ✅ |
+| `PUT` | `/me/change-password` | Change user password | ✅ |
+
+### Polls (Surveys) Management
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `GET` | `/api/Polls` | Get all polls | ✅ |
+| `POST` | `/api/Polls` | Create new poll | ✅ (Admin) |
+| `GET` | `/api/Polls/current` | Get current active polls | ✅ |
+| `GET` | `/api/Polls/{id}` | Get poll by ID | ✅ |
+| `PUT` | `/api/Polls/{id}` | Update poll | ✅ (Admin/Owner) |
+| `DELETE` | `/api/Polls/{id}` | Delete poll | ✅ (Admin/Owner) |
+| `PUT` | `/api/Polls/{id}/togglePublish` | Toggle poll publish status | ✅ (Admin/Owner) |
+
+### Questions Management
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `GET` | `/api/polls/{pollId}/Questions` | Get poll questions | ✅ |
+| `POST` | `/api/polls/{pollId}/Questions` | Add question to poll | ✅ (Admin/Owner) |
+| `GET` | `/api/polls/{pollId}/Questions/{id}` | Get question by ID | ✅ |
+| `PUT` | `/api/polls/{pollId}/Questions/{id}` | Update question | ✅ (Admin/Owner) |
+| `PUT` | `/api/polls/{pollId}/Questions/{id}/toggleStatus` | Toggle question status | ✅ (Admin/Owner) |
+
+### Voting & Results
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `GET` | `/api/polls/{pollId}/vote` | Get voting form | ✅ |
+| `POST` | `/api/polls/{pollId}/vote` | Submit vote | ✅ |
+| `GET` | `/api/polls/{pollId}/Results/row-data` | Get raw results data | ✅ (Admin/Owner) |
+| `GET` | `/api/polls/{pollId}/Results/votes-per-day` | Get votes per day statistics | ✅ (Admin/Owner) |
+| `GET` | `/api/polls/{pollId}/Results/votes-per-question` | Get votes per question | ✅ (Admin/Owner) |
 
 ## 🔑 Authentication & Authorization
 
@@ -159,40 +191,61 @@ Authorization: Bearer <your-jwt-token>
 
 | Role | Permissions |
 |------|-------------|
-| **Admin** | Full access to all surveys and responses |
-| **SurveyCreator** | Create, edit, and manage own surveys |
-| **Respondent** | Submit responses to published surveys |
+| **Admin** | Full access to all polls, questions, and results |
+| **PollCreator** | Create, edit, and manage own polls |
+| **Voter** | Submit votes to published polls |
 
 ## 📊 Sample Requests
 
 ### Register User
 ```http
-POST /api/auth/register
+POST /auth/register
 Content-Type: application/json
 
 {
-  "email": "safa@example.com",
-  "password": "SecurePassword123!",
+  "email": "safa1225@mail.com",
+  "password": "Safa$12225",
   "firstName": "Safa",
   "lastName": "Muhammad"
 }
 ```
 
-### Create Survey
+### Login User
 ```http
-POST /api/surveys
+POST /auth/login
+Content-Type: application/json
+
+{
+  "email": "safamm@mail.com",
+  "password": "Safa$12225"
+}
+```
+
+### Create Poll
+```http
+POST /api/Polls
 Authorization: Bearer <token>
 Content-Type: application/json
 
 {
   "title": "Customer Satisfaction Survey",
-  "description": "Help us improve our services",
-  "isPublic": true,
-  "questions": [
+  "summary": "Help us improve our services",
+  "startsAt": "2024-01-01T00:00:00Z",
+  "endsAt": "2024-12-31T23:59:59Z"
+}
+```
+
+### Submit Vote
+```http
+POST /api/polls/{pollId}/vote
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "answers": [
     {
-      "text": "How satisfied are you with our service?",
-      "type": "SingleChoice",
-      "options": ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied"]
+      "questionId": 1,
+      "answer": "Very Satisfied"
     }
   ]
 }
@@ -234,11 +287,9 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👩‍💻 Author
+## 👥 Authors
 
-**Safaa Mohamed** – Initial Work & Development  
-🔗 [GitHub Profile](https://github.com/safaamohamed225)
-
+- **Your Name** - *Initial work* - [YourGitHub](https://github.com/safaamohamed225)
 
 ## 🙏 Acknowledgments
 
