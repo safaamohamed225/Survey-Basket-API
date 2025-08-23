@@ -102,7 +102,7 @@ SurveyBasket.Api/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/SurveyBasket.Api.git
+   git clone https://github.com/safaamohamed225/SurveyBasket.Api.git
    cd SurveyBasket.Api
    ```
 
@@ -305,7 +305,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/safaamohamed225)
+- Safaa Mohamed - Initial work - [My GitHub](https://github.com/SafaaMohamed)
+
 
 ## 🙏 Acknowledgments
 
