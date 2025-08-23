@@ -305,7 +305,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- Safaa Mohamed - Initial work - [My GitHub](https://github.com/SafaaMohamed)
+- Safaa Mohamed - Initial work - [My GitHub](https://github.com/safaamohamed225)
 
 
 ## 🙏 Acknowledgments
