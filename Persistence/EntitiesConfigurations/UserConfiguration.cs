@@ -1,4 +1,6 @@
-﻿namespace SurveyBasket.Persistence.EntitiesConfigurations;
+﻿using SurveyBasket.Abstractions.Consts;
+
+namespace SurveyBasket.Persistence.EntitiesConfigurations;
 
 public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
@@ -13,6 +15,21 @@ public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
             
         builder.Property(x => x.FirstName).HasMaxLength(100);
         builder.Property(x => x.LastName).HasMaxLength(100);
+
+        var passwordHasher = new PasswordHasher<ApplicationUser>();
+        builder.HasData(new ApplicationUser
+        {
+            Id = DefaultUsers.AdminID,
+            FirstName = "Safa",
+            LastName = "Muhammad",
+            Email = DefaultUsers.AdminEmail,
+            EmailConfirmed = true,
+            NormalizedUserName = DefaultUsers.AdminEmail.ToUpper(),
+            NormalizedEmail = DefaultUsers.AdminEmail.ToUpper(),
+            SecurityStamp = DefaultUsers.AdminEmail,
+            ConcurrencyStamp = DefaultUsers.AdminConcurrencyStamp,
+            PasswordHash = passwordHasher.HashPassword(null!, DefaultUsers.AdminPassword)
+        });
     }
 
 }

@@ -16,8 +16,6 @@ namespace SurveyBasket.Services
             return Result.Success(user);
 
         }
-
-
         public async Task<Result> UpdateProfileAsync(string userId, UpdateProfileRequest request)
         {
             await _userManager.Users
