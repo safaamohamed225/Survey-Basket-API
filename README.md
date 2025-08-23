@@ -113,8 +113,8 @@ SurveyBasket.Api/
    ```
 
 6. **Access the API**
-   - API: `https://localhost:7000`
-   - Swagger UI: `https://localhost:7000/swagger`
+   - API: `https://localhost:7196`
+   - Swagger UI: `https://localhost:7196/swagger`
 
 ## 📖 API Documentation
 
