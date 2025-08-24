@@ -8,6 +8,16 @@
 A robust and scalable RESTful API built with ASP.NET Core for comprehensive poll management and voting systems. Features enterprise-grade security, role-based access control, and a clean architecture designed for maintainability and extensibility.
 
 <img width="764" height="552" alt="MindMap" src="https://github.com/user-attachments/assets/dc3a6c6f-5e4b-456e-9193-dbf49d0c1d56" />
+<br/>
+<br/>
+
+## 🌟 Database Diagram:
+
+
+<img width="773" height="632" alt="Design" src="https://github.com/user-attachments/assets/da1817b9-93df-4185-8b22-94760f8cc268" />
+
+
+
 
 ## 🌟 Glimpse of the working solution: 🌟
 
