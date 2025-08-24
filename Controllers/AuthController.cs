@@ -1,4 +1,6 @@
-﻿namespace SurveyBasket.Controllers;
+﻿using SurveyBasket.Abstractions.Consts;
+
+namespace SurveyBasket.Controllers;
 
 [Route("[controller]")]
 [ApiController]
@@ -71,5 +73,11 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
         var registerResult = await _authService.ResetPasswordAsync(request);
 
         return registerResult.IsSuccess ? Ok() : registerResult.ToProblem();
+    }
+
+    [HttpGet("test")]
+    public IActionResult Test()
+    {
+        return Ok(Permissions.GetAllPermissions());
     }
 }

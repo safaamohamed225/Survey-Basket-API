@@ -19,7 +19,7 @@ public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
         var passwordHasher = new PasswordHasher<ApplicationUser>();
         builder.HasData(new ApplicationUser
         {
-            Id = DefaultUsers.AdminID,
+            Id = DefaultUsers.AdminId,
             FirstName = "Safa",
             LastName = "Muhammad",
             Email = DefaultUsers.AdminEmail,
