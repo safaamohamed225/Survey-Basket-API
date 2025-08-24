@@ -8,9 +8,5 @@
         public const string AdminSecurityStamp = "24762FF6-A857-4409-9F31-D7F7CDEA4F0D";
         public const string AdminConcurrencyStamp = "0198d5cb-b811-7192-8357-d513ae755b25";
 
-
-
-
-
     }
 }

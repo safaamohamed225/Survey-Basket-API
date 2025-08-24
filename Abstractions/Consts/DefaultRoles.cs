@@ -1,0 +1,13 @@
+﻿namespace SurveyBasket.Abstractions.Consts
+{
+    public static class DefaultRoles
+    {
+        public const string Admin = "Admin";
+        public const string AdminRoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332";
+        public const string AdminRoleConcurrencyStamp = "0198dc44-2966-79a2-808a-a828fa857801";
+
+        public const string Member = "Member";
+        public const string MemberRoleId = "0198dc44-e6dd-7f0d-9d74-b7bbad512ce4";
+        public const string MemberRoleConcurrencyStamp = "0198dc45-0c6a-7e68-ad05-7dfb254fb6d3";
+    }
+}
