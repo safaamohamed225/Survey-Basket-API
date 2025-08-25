@@ -12,6 +12,36 @@ namespace SurveyBasket.Services
         private readonly MailSettings _mailSettings = mailSettings.Value;
         private readonly ILogger<EmailService> _logger = logger;
 
+        //public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+        //{
+        //    var message = new MimeMessage();
+
+        //    message.From.Add(new MailboxAddress(_mailSettings.DisplayName, _mailSettings.Mail));
+        //    message.Sender = MailboxAddress.Parse(_mailSettings.Mail);
+
+        //    message.To.Add(MailboxAddress.Parse(email));
+        //    message.Subject = subject;
+
+        //    var builder = new BodyBuilder
+        //    {
+        //        HtmlBody = htmlMessage
+        //    };
+        //    message.Body = builder.ToMessageBody();
+
+        //    using var smtp = new SmtpClient();
+
+        //    _logger.LogInformation("Sending Email To: {email}", email);
+
+        //    await smtp.ConnectAsync(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
+
+        //    _logger.LogInformation("Authenticating with {user} / {pass}", _mailSettings.Mail, _mailSettings.Password);
+
+        //    await smtp.AuthenticateAsync(_mailSettings.Mail, _mailSettings.Password);
+        //    await smtp.SendAsync(message);
+        //    await smtp.DisconnectAsync(true);
+        //}
+
+
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             var message = new MimeMessage

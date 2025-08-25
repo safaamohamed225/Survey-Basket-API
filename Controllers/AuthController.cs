@@ -19,13 +19,13 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
         return authResult.IsSuccess ? Ok(authResult.Value) : authResult.ToProblem();
     }
 
-    [HttpPost("refresh")]
-    public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
-    {
-        var authResult = await _authService.GetRefreshTokenAsync(request.Token, request.RefreshToken, cancellationToken);
+    //[HttpPost("refresh")]
+    //public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
+    //{
+    //    var authResult = await _authService.GetRefreshTokenAsync(request.Token, request.RefreshToken, cancellationToken);
 
-        return authResult.IsSuccess ? Ok(authResult.Value) : authResult.ToProblem();
-    }
+    //    return authResult.IsSuccess ? Ok(authResult.Value) : authResult.ToProblem();
+    //}
 
     [HttpPost("revoke-refresh-token")]
     public async Task<IActionResult> RevokeRefreshToken([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
