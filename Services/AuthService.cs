@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Server.Kestrel.Transport.NamedPipes;
 using Microsoft.AspNetCore.WebUtilities;
 using OneOf;
+using SurveyBasket.Abstractions.Consts;
 using SurveyBasket.Authentication;
 using SurveyBasket.Helpers;
 using System.Runtime.InteropServices.Marshalling;
@@ -167,7 +168,10 @@ public class AuthService(UserManager<ApplicationUser> userManager,
 
         var result = await _userManager.ConfirmEmailAsync(user, code);
         if (result.Succeeded)
+        {
+            await _userManager.AddToRoleAsync(user, DefaultRoles.Member);
             return Result.Success();
+        }
 
         var error = result.Errors.First();
 
