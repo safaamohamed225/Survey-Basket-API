@@ -36,17 +36,30 @@ A robust and scalable RESTful API built with ASP.NET Core for comprehensive poll
 ## 🌟 Key Features
 
 ### 📝 Poll Management
-- **Full CRUD Operations** for polls and questions
-- **Dynamic Poll Creation** with flexible question types
-- **Vote Collection** and validation
-- **Poll Analytics** and comprehensive reporting
-- **Publish/Unpublish** polls with status management
+- **Full CRUD Operations** for polls and questions  
+- **Dynamic Poll Creation** with flexible question types  
+- **Vote Collection** and validation  
+- **Poll Analytics** and comprehensive reporting  
+- **Publish/Unpublish** polls with status management  
 
 ### 🔐 Security & Authentication
-- **JWT Authentication** with refresh token support
-- **ASP.NET Core Identity** integration
-- **Role-Based Access Control (RBAC)** with granular permissions
-- **Secure API endpoints** with authorization policies
+- **ASP.NET Core Identity** integration  
+- **JWT Authentication** with refresh token support  
+- **Role-Based Access Control (RBAC)** with granular permissions  
+- **User & Role Management** (Admin, Creator, Voter)  
+- **Secure API endpoints** with authorization policies  
+
+### ⚙️ System & API Features
+- **Entity Framework Core & LINQ** for efficient data access  
+- **OpenAPI (Swagger)** for interactive API documentation  
+- **API Versioning** for backward compatibility  
+- **Rate Limiting** to prevent API abuse  
+- **Pagination, Filtering & Sorting** for large datasets  
+- **Caching** for performance optimization  
+- **Logging & Exception Handling** for monitoring & debugging  
+- **Background Jobs** for scheduled or async tasks  
+- **Health Checks** for system reliability  
+
 
 ### 🏗️ Architecture & Design
 - **Clean Architecture** principles
