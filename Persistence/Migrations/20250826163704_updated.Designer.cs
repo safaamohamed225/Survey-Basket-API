@@ -12,8 +12,8 @@ using SurveyBasket.Persistence;
 namespace SurveyBasket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250824223624_SeedingIdentityTables")]
-    partial class SeedingIdentityTables
+    [Migration("20250826163704_updated")]
+    partial class updated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -405,7 +405,7 @@ namespace SurveyBasket.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ROLE.COM",
                             NormalizedUserName = "ADMIN@ROLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE7xUY5Oc5NlksdDtoox1tNcyPOdSzvwGz6pWa4Aa4BzmNraMZ7VKsh7/K4lvCrfOg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDsLHfGoe9AhQpCqPO+tSGL5wMevGT2u/GDMj6JOb1U4jGDItAoBzvzmoMKPr/I9Rg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "admin@role.com",
                             TwoFactorEnabled = false

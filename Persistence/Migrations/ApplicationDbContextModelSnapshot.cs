@@ -50,98 +50,98 @@ namespace SurveyBasket.Migrations
                         new
                         {
                             Id = 1,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Polls : read",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 2,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Polls : add",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 3,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Polls : update",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 4,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Polls : remove",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 5,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Questions : read",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 6,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Questions : add",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 7,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Questions : update",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 8,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Users : read",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 9,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Users : add",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 10,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Users : update",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 11,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Roles : read",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 12,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Roles : add",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 13,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Roles : update",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 14,
-                            ClaimType = "Permission",
+                            ClaimType = "Permissions",
                             ClaimValue = "Results : read",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         });
@@ -402,7 +402,7 @@ namespace SurveyBasket.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ROLE.COM",
                             NormalizedUserName = "ADMIN@ROLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE7xUY5Oc5NlksdDtoox1tNcyPOdSzvwGz6pWa4Aa4BzmNraMZ7VKsh7/K4lvCrfOg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEP7cyC7KaVWCCgmSWQXfx4Nw35wbVguYdXIbuTWYYvwi3TlWFSaQdToL8O1JfsX8sQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "admin@role.com",
                             TwoFactorEnabled = false
