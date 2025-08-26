@@ -2,7 +2,7 @@
 {
     public static class Permissions
     {
-        public static string Type { get; } = "Permission";
+        public static string Type { get; } = "Permissions";
         public const string GetPolls ="Polls : read";
         public const string AddPolls ="Polls : add";
         public const string UpdatePolls ="Polls : update";
