@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using SurveyBasket.Contracts.Roles;
+using System.Collections;
 
 namespace SurveyBasket.Services
 {
     public interface IRoleService
     {
         Task<IEnumerable> GetAllAsync(bool? includeDisabled = false, CancellationToken cancellationToken = default);
+        Task<Result<RoleDetailResponse>> GetAsync(string id);
     }
 }
