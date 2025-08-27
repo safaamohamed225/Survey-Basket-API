@@ -28,10 +28,18 @@ namespace SurveyBasket.Controllers
         }
 
         [HttpPost("")]
+        [HasPermission(Permissions.AddRoles)]
         public async Task<IActionResult> Add([FromBody] RoleRequest request)
         {
             var result = await _roleService.AddAsync(request);
-            return result.IsSuccess ? Ok(result.Value) : result.ToProblem();
+            return result.IsSuccess ? CreatedAtAction(nameof(Add), new {result.Value.Id}, result.Value) : result.ToProblem();
+        }
+        [HttpPut("{id}")]
+        [HasPermission(Permissions.UpdateRoles)]
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] RoleRequest request)
+        {
+            var result = await _roleService.UpdateAsync(id, request);
+            return result.IsSuccess ? NoContent() : result.ToProblem();
         }
 
     }
