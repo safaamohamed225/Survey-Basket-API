@@ -1,10 +1,40 @@
-﻿using SurveyBasket.Contracts.Users;
+﻿using SurveyBasket.Abstractions.Consts;
+using SurveyBasket.Contracts.Users;
 
 namespace SurveyBasket.Services
 {
-    public class UserService(UserManager<ApplicationUser> userManager) : IUserService
+    public class UserService(UserManager<ApplicationUser> userManager, ApplicationDbContext context) : IUserService
     {
         private readonly UserManager<ApplicationUser> _userManager = userManager;
+        private readonly ApplicationDbContext _context = context;
+
+        public async Task<IEnumerable<UserResponse>> GetAllAsync(CancellationToken cancellationToken = default) =>
+            await (from u in _context.Users
+                   join ur in _context.UserRoles
+                   on u.Id equals ur.UserId
+                   join r in _context.Roles
+                   on ur.RoleId equals r.Id into roles
+                   where !roles.Any(r => r.Name == DefaultRoles.Member)
+                   select new
+                   {
+                       u.Id,
+                       u.FirstName,
+                       u.LastName,
+                       u.Email,
+                       u.IsDisabled,
+                       Roles = roles.Select(r => r.Name!).ToList()
+                   }
+                  ).GroupBy(user=>new {user.Id, user.FirstName, user.LastName, user.Email, user.IsDisabled})
+                   .Select(u=>new UserResponse(
+                       u.Key.Id,
+                       u.Key.FirstName,
+                       u.Key.LastName,
+                       u.Key.Email,
+                       u.Key.IsDisabled,
+                       u.SelectMany(r=>r.Roles)
+                       ))
+                       .ToListAsync(cancellationToken);
+
 
         public async Task<Result<UserProfileResponse>> GetProfileAsync(string userId)
         {

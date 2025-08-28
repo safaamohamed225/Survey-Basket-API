@@ -30,6 +30,7 @@ public class AuthService(UserManager<ApplicationUser> userManager,
     private readonly ApplicationDbContext _context = context;
     private readonly int _refreshTokenExpiryDays = 14;
 
+
     public async Task<Result<AuthResponse>> GetTokenAsync(string email, string password, CancellationToken cancellationToken = default)
     {
         //var user = await _userManager.FindByEmailAsync(email);
