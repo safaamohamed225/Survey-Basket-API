@@ -75,9 +75,9 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
         return registerResult.IsSuccess ? Ok() : registerResult.ToProblem();
     }
 
-    [HttpGet("test")]
-    public IActionResult Test()
-    {
-        return Ok(Permissions.GetAllPermissions());
-    }
+    //[HttpGet("test")]
+    //public IActionResult Test()
+    //{
+    //    return Ok(Permissions.GetAllPermissions());
+    //}
 }

@@ -12,10 +12,10 @@ namespace SurveyBasket.Persistence
             {
                 adminClaims.Add(new IdentityRoleClaim<string>
                 {
-                    Id = i + 1,
-                    RoleId = DefaultRoles.AdminRoleId,
+                    Id = i + 1,   
                     ClaimType = Permissions.Type,
-                    ClaimValue = permissions[i]!
+                    ClaimValue = permissions[i],
+                    RoleId = DefaultRoles.AdminRoleId
                 });
             }
 

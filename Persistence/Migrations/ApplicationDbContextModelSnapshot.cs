@@ -50,99 +50,99 @@ namespace SurveyBasket.Migrations
                         new
                         {
                             Id = 1,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Polls : read",
+                            ClaimType = "permissions",
+                            ClaimValue = "polls:read",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 2,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Polls : add",
+                            ClaimType = "permissions",
+                            ClaimValue = "polls:add",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 3,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Polls : update",
+                            ClaimType = "permissions",
+                            ClaimValue = "polls:update",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 4,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Polls : remove",
+                            ClaimType = "permissions",
+                            ClaimValue = "polls:delete",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 5,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Questions : read",
+                            ClaimType = "permissions",
+                            ClaimValue = "questions:read",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 6,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Questions : add",
+                            ClaimType = "permissions",
+                            ClaimValue = "questions:add",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 7,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Questions : update",
+                            ClaimType = "permissions",
+                            ClaimValue = "questions:update",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 8,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Users : read",
+                            ClaimType = "permissions",
+                            ClaimValue = "users:read",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 9,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Users : add",
+                            ClaimType = "permissions",
+                            ClaimValue = "users:add",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 10,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Users : update",
+                            ClaimType = "permissions",
+                            ClaimValue = "users:update",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 11,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Roles : read",
+                            ClaimType = "permissions",
+                            ClaimValue = "roles:read",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 12,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Roles : add",
+                            ClaimType = "permissions",
+                            ClaimValue = "roles:add",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 13,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Roles : update",
+                            ClaimType = "permissions",
+                            ClaimValue = "roles:update",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         },
                         new
                         {
                             Id = 14,
-                            ClaimType = "Permissions",
-                            ClaimValue = "Results : read",
+                            ClaimType = "permissions",
+                            ClaimValue = "results:read",
                             RoleId = "0198dc42-e2ee-73cc-9237-12f4c152c332"
                         });
                 });
@@ -339,6 +339,9 @@ namespace SurveyBasket.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("IsDisabled")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -398,11 +401,12 @@ namespace SurveyBasket.Migrations
                             Email = "admin@role.com",
                             EmailConfirmed = true,
                             FirstName = "Safa",
+                            IsDisabled = false,
                             LastName = "Muhammad",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ROLE.COM",
                             NormalizedUserName = "ADMIN@ROLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEP7cyC7KaVWCCgmSWQXfx4Nw35wbVguYdXIbuTWYYvwi3TlWFSaQdToL8O1JfsX8sQ==",
+                            PasswordHash = "Safa$1225",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "admin@role.com",
                             TwoFactorEnabled = false

@@ -36,6 +36,8 @@ public class AuthService(UserManager<ApplicationUser> userManager,
 
         if (await _userManager.FindByEmailAsync(email) is not { } user)
             return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
+        if(user.IsDisabled)
+            return Result.Failure<AuthResponse>(UserErrors.DisabledUser);
 
         var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
         if(result.Succeeded)
@@ -74,6 +76,8 @@ public class AuthService(UserManager<ApplicationUser> userManager,
 
         if (user is null)
             return Result.Failure<AuthResponse>(UserErrors.InvalidJwtToken);
+        if (user.IsDisabled)
+            return Result.Failure<AuthResponse>(UserErrors.DisabledUser);
 
         var userRefreshToken = user.RefreshTokens.SingleOrDefault(x => x.Token == refreshToken && x.IsActive);
 

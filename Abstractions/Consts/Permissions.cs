@@ -1,28 +1,28 @@
-﻿namespace SurveyBasket.Abstractions.Consts
+﻿namespace SurveyBasket.Abstractions.Consts;
+
+public static class Permissions
 {
-    public static class Permissions
-    {
-        public static string Type { get; } = "Permissions";
-        public const string GetPolls ="Polls : read";
-        public const string AddPolls ="Polls : add";
-        public const string UpdatePolls ="Polls : update";
-        public const string DeletePolls ="Polls : remove";
+    public static string Type { get; } = "permissions";
 
+    public const string GetPolls = "polls:read";
+    public const string AddPolls = "polls:add";
+    public const string UpdatePolls = "polls:update";
+    public const string DeletePolls = "polls:delete";
 
-        public const string GetQuestions = "Questions : read";
-        public const string AddQuestions = "Questions : add";
-        public const string UpdateQuestions= "Questions : update";
+    public const string GetQuestions = "questions:read";
+    public const string AddQuestions = "questions:add";
+    public const string UpdateQuestions = "questions:update";
 
-        public const string GetUsers = "Users : read";
-        public const string AddUsers = "Users : add";
-        public const string UpdateUsers = "Users : update";
+    public const string GetUsers = "users:read";
+    public const string AddUsers = "users:add";
+    public const string UpdateUsers = "users:update";
 
-        public const string GetRoles = "Roles : read";
-        public const string AddRoles = "Roles : add";
-        public const string UpdateRoles = "Roles : update";
-        public const string Results = "Results : read";
+    public const string GetRoles = "roles:read";
+    public const string AddRoles = "roles:add";
+    public const string UpdateRoles = "roles:update";
 
-        public static IList<string?> GetAllPermissions()=>
-            typeof(Permissions).GetFields().Select(f=> f.GetValue(f) as string).ToList();
-    }
+    public const string Results = "results:read";
+
+    public static IList<string?> GetAllPermissions() =>
+        typeof(Permissions).GetFields().Select(x => x.GetValue(x) as string).ToList();
 }
