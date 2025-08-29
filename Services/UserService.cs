@@ -3,9 +3,10 @@ using SurveyBasket.Contracts.Users;
 
 namespace SurveyBasket.Services
 {
-    public class UserService(UserManager<ApplicationUser> userManager, ApplicationDbContext context) : IUserService
+    public class UserService(UserManager<ApplicationUser> userManager, IRoleService roleService, ApplicationDbContext context) : IUserService
     {
         private readonly UserManager<ApplicationUser> _userManager = userManager;
+        private readonly IRoleService _roleService = roleService;
         private readonly ApplicationDbContext _context = context;
 
         public async Task<IEnumerable<UserResponse>> GetAllAsync(CancellationToken cancellationToken = default) =>
@@ -52,6 +53,32 @@ namespace SurveyBasket.Services
 
             var userResponse = (user, userRoles).Adapt<UserResponse>();
             return Result.Success(userResponse);
+        }
+
+        public async Task<Result<UserResponse>> AddAsync(CreateUserRequest request, CancellationToken cancellationToken = default)
+        {
+            var emailIsExists = await _userManager.Users.AnyAsync(e=>e.Email ==request.Email, cancellationToken);
+            if (emailIsExists)
+                return Result.Failure<UserResponse>(UserErrors.DublicatedEmail);
+            var allowedRoles = await _roleService.GetAllAsync(cancellationToken:cancellationToken);
+
+            if(request.Roles.Except(allowedRoles.Select(r=>r.Name)).Any())
+                return Result.Failure<UserResponse>(UserErrors.InvalidRoles);
+
+            var user = request.Adapt<ApplicationUser>();
+            var result = await _userManager.CreateAsync(user, request.Password);
+
+            if(result.Succeeded)
+            {
+                await _userManager.AddToRolesAsync(user, request.Roles);
+                var userResponse = (user, request.Roles).Adapt<UserResponse>();
+                return Result.Success(userResponse);
+            }
+
+            var error = result.Errors.First();
+            return Result.Failure<UserResponse>(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
+
+
         }
         public async Task<Result<UserProfileResponse>> GetProfileAsync(string userId)
         {

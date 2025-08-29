@@ -28,4 +28,6 @@ public static class UserErrors
 
     public static readonly Error UserNotFound =
         new("User.UserNotFound", "User not found", StatusCodes.Status404NotFound);
+    public static readonly Error InvalidRoles =
+        new("User.InvalidRoles", "One or more roles are invalid", StatusCodes.Status400BadRequest);
 }
