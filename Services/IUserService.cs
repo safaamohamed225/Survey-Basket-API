@@ -8,5 +8,6 @@ namespace SurveyBasket.Services
         Task<Result<UserProfileResponse>> GetProfileAsync(string userId);
         Task<Result> UpdateProfileAsync(string userId, UpdateProfileRequest request);
         Task<Result> ChangePasswordAsync(string userId, ChangePasswordRequest request);
+        Task<Result<UserResponse>> GetUserAsync(string id);
     }
 }

@@ -35,7 +35,24 @@ namespace SurveyBasket.Services
                        ))
                        .ToListAsync(cancellationToken);
 
+        public async Task<Result<UserResponse>> GetUserAsync(string id)
+        {
+            if(await _userManager.FindByIdAsync(id) is not{} user)
+                return Result.Failure<UserResponse>(UserErrors.UserNotFound);
+            var userRoles = await _userManager.GetRolesAsync(user);
 
+            //var userResponse = new UserResponse(
+            //    user.Id,
+            //    user.FirstName,
+            //    user.LastName,
+            //    user.Email,
+            //    user.IsDisabled,
+            //    userRoles
+            //    );
+
+            var userResponse = (user, userRoles).Adapt<UserResponse>();
+            return Result.Success(userResponse);
+        }
         public async Task<Result<UserProfileResponse>> GetProfileAsync(string userId)
         {
             var user = await _userManager.Users
