@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SurveyBasket.Abstractions.Consts;
 using SurveyBasket.Authentication.Filters;
 using SurveyBasket.Contracts.Users;
+using System.Formats.Asn1;
 
 namespace SurveyBasket.Controllers
 {
@@ -42,6 +43,15 @@ namespace SurveyBasket.Controllers
         {
             var result = await _userService.UpdateAsync(id, request, cancellationToken);
             return result.IsSuccess ? NoContent() : result.ToProblem();
+        }
+
+        [HttpPut("{id}/toggle-status")]
+        [HasPermission(Permissions.UpdateUsers)]
+        public async Task<IActionResult> ToggleStatus([FromRoute]string id)
+        {
+            var result = await _userService.ToggleStatusAsync(id);
+
+            return result.IsSuccess ? NoContent() : result.ToProblem(); 
         }
     }
 }
