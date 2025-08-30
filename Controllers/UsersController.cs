@@ -46,12 +46,18 @@ namespace SurveyBasket.Controllers
         }
 
         [HttpPut("{id}/toggle-status")]
-        [HasPermission(Permissions.UpdateUsers)]
         public async Task<IActionResult> ToggleStatus([FromRoute]string id)
         {
             var result = await _userService.ToggleStatusAsync(id);
 
             return result.IsSuccess ? NoContent() : result.ToProblem(); 
+        }
+
+        [HttpPut("{id}/unlock")]
+        public async Task<IActionResult> Unlock([FromRoute]string id)
+        {
+            var result = await _userService.UnlockAsync(id);
+            return result.IsSuccess ? NoContent() : result.ToProblem();
         }
     }
 }
