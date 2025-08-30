@@ -22,9 +22,12 @@ A robust and scalable RESTful API built with ASP.NET Core for comprehensive poll
 ## 🌟 Glimpse of the working solution: 🌟
 
 <img width="1269" height="733" alt="1" src="https://github.com/user-attachments/assets/89e0fac1-6de0-4418-b68c-f0d87410f1c0" />
+<img width="1264" height="380" alt="Users" src="https://github.com/user-attachments/assets/d5e35499-1e7a-41d1-a717-46cd7e31e78d" />
 
 <img width="1265" height="655" alt="2" src="https://github.com/user-attachments/assets/e5c2f699-aa60-4060-a401-0666137db6b6" />
 <img width="1105" height="328" alt="3" src="https://github.com/user-attachments/assets/c52acffb-35f9-4f9d-8782-884c895e9a76" />
+
+
 <img width="1118" height="855" alt="4" src="https://github.com/user-attachments/assets/e930b7b8-4494-4890-909d-babac70966f4" />
 
 <img width="1125" height="558" alt="6" src="https://github.com/user-attachments/assets/7fd06227-98cb-475b-b0fb-ccb0abd76180" />
