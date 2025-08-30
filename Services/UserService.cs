@@ -80,6 +80,38 @@ namespace SurveyBasket.Services
 
 
         }
+        public async Task<Result> UpdateAsync(string id, UpdateUserRequest request, CancellationToken cancellationToken = default)
+        {
+            var emailIsExists = await _userManager.Users.AnyAsync(e => e.Email == request.Email && e.Id != id, cancellationToken);
+            if (emailIsExists)
+                return Result.Failure(UserErrors.DublicatedEmail);
+            var allowedRoles = await _roleService.GetAllAsync(cancellationToken: cancellationToken);
+
+            if (request.Roles.Except(allowedRoles.Select(r => r.Name)).Any())
+                return Result.Failure(UserErrors.InvalidRoles);
+
+            if(await _userManager.FindByIdAsync(id) is not {} user)
+                return Result.Failure(UserErrors.UserNotFound);
+
+            user = request.Adapt(user);
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+              await _context.UserRoles
+                    .Where(ur => ur.UserId == id )
+                    .ExecuteDeleteAsync(cancellationToken);
+                await _userManager.AddToRolesAsync(user, request.Roles);
+
+                return Result.Success();
+            }
+
+            var error = result.Errors.First();
+            return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
+
+
+        }
         public async Task<Result<UserProfileResponse>> GetProfileAsync(string userId)
         {
             var user = await _userManager.Users
