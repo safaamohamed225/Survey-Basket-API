@@ -60,7 +60,8 @@ public static class DependencyInjection
 
         services.Configure<MailSettings>(configuration.GetSection(nameof(MailSettings)));
         services.AddHealthChecks()
-            .AddDbContextCheck<ApplicationDbContext>(name:"database");
+            .AddSqlServer(name: "database", connectionString: connectionString);
+            //.AddDbContextCheck<ApplicationDbContext>(name:"database");
 
         return services;
     }
