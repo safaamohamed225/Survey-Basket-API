@@ -23,7 +23,7 @@ public class QuestionService(ApplicationDbContext context, HybridCache hybridCac
             return Result.Failure<PaginatedList<QuestionResponse>>(PollErrors.PollNotFound);
 
         var query = _context.Questions
-            .Where(x => x.PollId == pollId)
+            .Where(x => x.PollId == pollId && (string.IsNullOrEmpty(filters.SearchTerm) || x.Content.Contains(filters.SearchTerm)))
             .Include(x => x.Answers)
             .ProjectToType<QuestionResponse>()
             .AsNoTracking();
