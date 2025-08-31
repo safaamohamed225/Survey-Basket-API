@@ -59,7 +59,8 @@ public static class DependencyInjection
         services.AddBackgroundJobsConfig(configuration);
 
         services.Configure<MailSettings>(configuration.GetSection(nameof(MailSettings)));
-        services.AddHealthChecks();
+        services.AddHealthChecks()
+            .AddDbContextCheck<ApplicationDbContext>(name:"database");
 
         return services;
     }
