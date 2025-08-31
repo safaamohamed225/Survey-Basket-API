@@ -64,6 +64,8 @@ public static class DependencyInjection
             .AddSqlServer(name: "database", connectionString: connectionString)
             .AddHangfire(options => { options.MinimumAvailableServers = 1; })
             .AddUrlGroup(name: "VoteHub.Api", uri: new Uri("https://github.com/safaamohamed225"))
+            .AddUrlGroup(name: "google.Api", uri: new Uri("https://www.google.com"), tags: ["api"])
+            .AddUrlGroup(name: "meta.Api", uri: new Uri("https://www.facebook.com"), tags: ["api"])
             .AddCheck<MailProviderHealthCheck>(name: "mail_provider");
         //.AddDbContextCheck<ApplicationDbContext>(name:"database");
 
