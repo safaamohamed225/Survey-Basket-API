@@ -60,7 +60,8 @@ public static class DependencyInjection
 
         services.Configure<MailSettings>(configuration.GetSection(nameof(MailSettings)));
         services.AddHealthChecks()
-            .AddSqlServer(name: "database", connectionString: connectionString);
+            .AddSqlServer(name: "database", connectionString: connectionString)
+            .AddHangfire(options => { options.MinimumAvailableServers = 1; });
             //.AddDbContextCheck<ApplicationDbContext>(name:"database");
 
         return services;
