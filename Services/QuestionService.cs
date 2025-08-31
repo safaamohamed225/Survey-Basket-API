@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.OutputCaching;
+﻿
 using Microsoft.Extensions.Caching.Hybrid;
-using SurveyBasket.Contracts.Answers;
+
 using SurveyBasket.Contracts.Common;
 using SurveyBasket.Contracts.Questions;
-using System.Collections.Generic;
-using System.Threading;
+using System.Linq.Dynamic.Core;
+
 
 namespace SurveyBasket.Services;
 
@@ -23,15 +23,23 @@ public class QuestionService(ApplicationDbContext context, HybridCache hybridCac
             return Result.Failure<PaginatedList<QuestionResponse>>(PollErrors.PollNotFound);
 
         var query = _context.Questions
-            .Where(x => x.PollId == pollId && (string.IsNullOrEmpty(filters.SearchTerm) || x.Content.Contains(filters.SearchTerm)))
+            .Where(x => x.PollId == pollId);
+        if(!string.IsNullOrEmpty(filters.SearchTerm))
+        { 
+            query = query.Where(x => x.Content.Contains(filters.SearchTerm));
+        }
+        if(!string.IsNullOrEmpty(filters.SortBy))
+        {
+            query = query.OrderBy($"{filters.SortBy} {filters.SortDirection}");
+        }
+          var source = query
             .Include(x => x.Answers)
             .ProjectToType<QuestionResponse>()
             .AsNoTracking();
 
-        var questions = await PaginatedList<QuestionResponse>.CreateAsync(query, filters.PageNumber, filters.PageSize, cancellationToken);
+        var questions = await PaginatedList<QuestionResponse>.CreateAsync(source, filters.PageNumber, filters.PageSize, cancellationToken);
 
         return Result.Success(questions);
-
     }
 
     public async Task<Result<QuestionResponse>> GetAsync(int pollId, int id, CancellationToken cancellationToken)
