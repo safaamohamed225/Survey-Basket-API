@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.IdentityModel.Tokens;
 using SurveyBasket.Authentication.Filters;
+using SurveyBasket.Health;
 using SurveyBasket.Settings;
 
 using System.Text;
@@ -62,8 +63,9 @@ public static class DependencyInjection
         services.AddHealthChecks()
             .AddSqlServer(name: "database", connectionString: connectionString)
             .AddHangfire(options => { options.MinimumAvailableServers = 1; })
-            .AddUrlGroup(name: "VoteHub.Api", uri: new Uri("https://github.com/safaamohamed225"));
-            //.AddDbContextCheck<ApplicationDbContext>(name:"database");
+            .AddUrlGroup(name: "VoteHub.Api", uri: new Uri("https://github.com/safaamohamed225"))
+            .AddCheck<MailProviderHealthCheck>(name: "mail_provider");
+        //.AddDbContextCheck<ApplicationDbContext>(name:"database");
 
         return services;
     }
