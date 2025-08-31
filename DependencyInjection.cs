@@ -61,7 +61,8 @@ public static class DependencyInjection
         services.Configure<MailSettings>(configuration.GetSection(nameof(MailSettings)));
         services.AddHealthChecks()
             .AddSqlServer(name: "database", connectionString: connectionString)
-            .AddHangfire(options => { options.MinimumAvailableServers = 1; });
+            .AddHangfire(options => { options.MinimumAvailableServers = 1; })
+            .AddUrlGroup(name: "VoteHub.Api", uri: new Uri("https://github.com/safaamohamed225"));
             //.AddDbContextCheck<ApplicationDbContext>(name:"database");
 
         return services;
