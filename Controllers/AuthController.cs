@@ -97,4 +97,12 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
         Thread.Sleep(2000);
         return Ok();
     }
+
+    [HttpGet("test-fixed")]
+    [EnableRateLimiting("fixed")]
+    public IActionResult TestFixed()
+    {
+        Thread.Sleep(6000);
+        return Ok();
+    }
 }

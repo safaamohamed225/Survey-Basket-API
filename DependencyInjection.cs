@@ -82,14 +82,23 @@ public static class DependencyInjection
             //    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
             //});
 
-            rateLimiterOptions.AddTokenBucketLimiter("token", options =>
+            //rateLimiterOptions.AddTokenBucketLimiter("token", options =>
+            //{
+            //    options.TokenLimit = 20;
+            //    options.QueueLimit = 10;
+            //    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+            //    options.ReplenishmentPeriod = TimeSpan.FromSeconds(10);
+            //    options.TokensPerPeriod = 20;
+            //    options.AutoReplenishment = true;
+            //});
+
+            rateLimiterOptions.AddFixedWindowLimiter("fixed", options =>
             {
-                options.TokenLimit = 20;
-                options.QueueLimit = 10;
+                options.PermitLimit = 5;
+                options.Window = TimeSpan.FromSeconds(10);
+                options.QueueLimit = 2;
                 options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-                options.ReplenishmentPeriod = TimeSpan.FromSeconds(10);
-                options.TokensPerPeriod = 20;
-                options.AutoReplenishment = true;
+
             });
         });
 
