@@ -333,17 +333,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Safaa Mohamed - Initial work - [My GitHub](https://github.com/safaamohamed225)
 
-
 ## 🙏 Acknowledgments
+This project was developed individually with the support of amazing open-source tools and frameworks:
 
-- ASP.NET Core team for the excellent framework
+- ASP.NET Core for the excellent framework
 - Entity Framework Core for robust data access
-- The open-source community for inspiration and tools
+- The open-source community for inspiration
 
-## 📞 Support
-
-If you have any questions or need help, please:
-
-- 📧 Email: support@surveybasket.com
-- 🐛 [Open an issue](https://github.com/safaamohamed225/SurveyBasket.Api/issues)
-- 💬 [Start a discussion](https://github.com/safaamohamed225/SurveyBasket.Api/discussions)
