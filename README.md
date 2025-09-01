@@ -164,7 +164,15 @@ SurveyBasket.Api/
 
 ## 📖 API Documentation
 
-![Swagger UI](https://raw.githubusercontent.com/safaamohamed225/SurveyBasket.Api/main/docs/swagger-ui.png)
+This project uses **Swagger UI** for API documentation.  
+You can explore and test the API endpoints by running the project and navigating to:
+
+👉 https://localhost:{port}/swagger
+
+
+⚡ Note: Swagger is enabled by default in **Development** environment.  
+To enable it in **Production**, you need to update the `Program.cs` configuration.
+
 
 ### Authentication Endpoints
 
@@ -317,33 +325,24 @@ dotnet test --collect:"XPlat Code Coverage"
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+This project is developed and maintained solely by **Safaa Muhammad**.  
+Currently, external contributions are not accepted.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👥 Authors
+## 👤 Author
 
-- Safaa Mohamed - Initial work - [My GitHub](https://github.com/safaamohamed225)
-
+- Safaa Muhammad  
+  - [GitHub](https://github.com/safaamohamed225)  
+  - [LinkedIn](https://www.linkedin.com/in/safa-mohamed-dotnet/)   
 
 ## 🙏 Acknowledgments
+This project was developed individually with the support of amazing open-source tools and frameworks:
 
-- ASP.NET Core team for the excellent framework
+- ASP.NET Core for the excellent framework
 - Entity Framework Core for robust data access
-- The open-source community for inspiration and tools
+- The open-source community for inspiration
 
-## 📞 Support
-
-If you have any questions or need help, please:
-
-- 📧 Email: support@surveybasket.com
-- 🐛 [Open an issue](https://github.com/safaamohamed225/SurveyBasket.Api/issues)
-- 💬 [Start a discussion](https://github.com/safaamohamed225/SurveyBasket.Api/discussions)
