@@ -1,4 +1,5 @@
-﻿using SurveyBasket.Abstractions.Consts;
+﻿using Microsoft.AspNetCore.RateLimiting;
+using SurveyBasket.Abstractions.Consts;
 
 namespace SurveyBasket.Controllers;
 
@@ -75,9 +76,17 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
         return registerResult.IsSuccess ? Ok() : registerResult.ToProblem();
     }
 
-    //[HttpGet("test")]
-    //public IActionResult Test()
-    //{
-    //    return Ok(Permissions.GetAllPermissions());
-    //}
+    [HttpGet("test")]
+    public IActionResult Test()
+    {
+        return Ok(Permissions.GetAllPermissions());
+    }
+
+    [HttpGet("test-rate")]
+    [EnableRateLimiting("concurrency")]
+    public IActionResult TestRate()
+    {
+        Thread.Sleep(2000);
+        return Ok();
+    }
 }
