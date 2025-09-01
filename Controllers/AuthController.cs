@@ -105,4 +105,12 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
         Thread.Sleep(6000);
         return Ok();
     }
+
+    [HttpGet("test-sliding")]
+    [EnableRateLimiting("sliding")]
+    public IActionResult TestSliding()
+    {
+        Thread.Sleep(6000);
+        return Ok();
+    }
 }
