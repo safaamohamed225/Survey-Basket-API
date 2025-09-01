@@ -89,4 +89,12 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
         Thread.Sleep(2000);
         return Ok();
     }
+
+    [HttpGet("test-token")]
+    [EnableRateLimiting("token")]
+    public IActionResult TestToken()
+    {
+        Thread.Sleep(2000);
+        return Ok();
+    }
 }
