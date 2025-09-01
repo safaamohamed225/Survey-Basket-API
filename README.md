@@ -167,7 +167,8 @@ SurveyBasket.Api/
 This project uses **Swagger UI** for API documentation.  
 You can explore and test the API endpoints by running the project and navigating to:
 
-👉 https://localhost:7196/swagger
+👉 https://localhost:{port}/swagger
+
 
 ⚡ Note: Swagger is enabled by default in **Development** environment.  
 To enable it in **Production**, you need to update the `Program.cs` configuration.
