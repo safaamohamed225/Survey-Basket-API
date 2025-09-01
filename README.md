@@ -329,9 +329,11 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👥 Authors
+## 👤 Author
 
-- Safaa Mohamed - Initial work - [My GitHub](https://github.com/safaamohamed225)
+- Safaa Mohamed  
+  - [GitHub](https://github.com/safaamohamed225)  
+  - [LinkedIn](https://www.linkedin.com/in/safa-mohamed-dotnet/)   
 
 ## 🙏 Acknowledgments
 This project was developed individually with the support of amazing open-source tools and frameworks:
