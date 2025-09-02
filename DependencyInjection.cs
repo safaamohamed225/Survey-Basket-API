@@ -87,6 +87,18 @@ public static class DependencyInjection
                  )
 
             );
+
+            rateLimiterOptions.AddPolicy("userLimit", httpContext =>
+           RateLimitPartition.GetFixedWindowLimiter(
+               partitionKey: httpContext.User.GetUserId(),
+               factory: partition => new FixedWindowRateLimiterOptions
+               {
+                   PermitLimit = 3,
+                   Window = TimeSpan.FromSeconds(30)
+               }
+               )
+
+          );
             //rateLimiterOptions.AddConcurrencyLimiter("concurrency", options =>
             //{
             //    options.PermitLimit = 10;
