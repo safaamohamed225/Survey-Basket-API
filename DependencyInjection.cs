@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
+using SurveyBasket.Abstractions.Consts;
 using SurveyBasket.Authentication.Filters;
 using SurveyBasket.Health;
 using SurveyBasket.Settings;
@@ -76,7 +77,7 @@ public static class DependencyInjection
         {
             rateLimiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
-            rateLimiterOptions.AddPolicy("ipLimit", httpContext =>
+            rateLimiterOptions.AddPolicy(Limiter.IpLimit, httpContext =>
              RateLimitPartition.GetFixedWindowLimiter(
                  partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown_ip",
                  factory : partition => new FixedWindowRateLimiterOptions
@@ -88,7 +89,7 @@ public static class DependencyInjection
 
             );
 
-            rateLimiterOptions.AddPolicy("userLimit", httpContext =>
+            rateLimiterOptions.AddPolicy(Limiter.UserLimit, httpContext =>
            RateLimitPartition.GetFixedWindowLimiter(
                partitionKey: httpContext.User.GetUserId(),
                factory: partition => new FixedWindowRateLimiterOptions
@@ -99,12 +100,12 @@ public static class DependencyInjection
                )
 
           );
-            //rateLimiterOptions.AddConcurrencyLimiter("concurrency", options =>
-            //{
-            //    options.PermitLimit = 10;
-            //    options.QueueLimit = 5;
-            //    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-            //});
+            rateLimiterOptions.AddConcurrencyLimiter(Limiter.Concurrency, options =>
+            {
+                options.PermitLimit = 10;
+                options.QueueLimit = 5;
+                options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+            });
 
             //rateLimiterOptions.AddTokenBucketLimiter("token", options =>
             //{

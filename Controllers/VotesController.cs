@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.RateLimiting;
 using SurveyBasket.Abstractions.Consts;
 using SurveyBasket.Contracts.Votes;
 
@@ -8,6 +9,7 @@ namespace SurveyBasket.Controllers;
 [Route("api/polls/{pollId}/vote")]
 [ApiController]
 [Authorize(DefaultRoles.Member)]
+[EnableRateLimiting(Limiter.Concurrency)]
 public class VotesController(IQuestionService questionService, IVoteService voteService) : ControllerBase
 {
     private readonly IQuestionService _questionService = questionService;
