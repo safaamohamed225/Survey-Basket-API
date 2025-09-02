@@ -5,6 +5,7 @@ namespace SurveyBasket.Controllers;
 
 [Route("[controller]")]
 [ApiController]
+[EnableRateLimiting("ipLimit")]
 public class AuthController(IAuthService authService, ILogger<AuthController> logger) : ControllerBase
 {
 
@@ -20,13 +21,13 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
         return authResult.IsSuccess ? Ok(authResult.Value) : authResult.ToProblem();
     }
 
-    //[HttpPost("refresh")]
-    //public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
-    //{
-    //    var authResult = await _authService.GetRefreshTokenAsync(request.Token, request.RefreshToken, cancellationToken);
+    [HttpPost("refresh")]
+    public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
+    {
+        var authResult = await _authService.GetRefreshTokenAsync(request.Token, request.RefreshToken, cancellationToken);
 
-    //    return authResult.IsSuccess ? Ok(authResult.Value) : authResult.ToProblem();
-    //}
+        return authResult.IsSuccess ? Ok(authResult.Value) : authResult.ToProblem();
+    }
 
     [HttpPost("revoke-refresh-token")]
     public async Task<IActionResult> RevokeRefreshToken([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
@@ -37,6 +38,7 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
     }
 
     [HttpPost("register")]
+    [DisableRateLimiting]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
     {
         var registerResult = await _authService.RegisterAsync(request, cancellationToken);
@@ -74,43 +76,5 @@ public class AuthController(IAuthService authService, ILogger<AuthController> lo
         var registerResult = await _authService.ResetPasswordAsync(request);
 
         return registerResult.IsSuccess ? Ok() : registerResult.ToProblem();
-    }
-
-    [HttpGet("test")]
-    public IActionResult Test()
-    {
-        return Ok(Permissions.GetAllPermissions());
-    }
-
-    [HttpGet("test-rate")]
-    [EnableRateLimiting("concurrency")]
-    public IActionResult TestRate()
-    {
-        Thread.Sleep(2000);
-        return Ok();
-    }
-
-    [HttpGet("test-token")]
-    [EnableRateLimiting("token")]
-    public IActionResult TestToken()
-    {
-        Thread.Sleep(2000);
-        return Ok();
-    }
-
-    [HttpGet("test-fixed")]
-    [EnableRateLimiting("fixed")]
-    public IActionResult TestFixed()
-    {
-        Thread.Sleep(6000);
-        return Ok();
-    }
-
-    [HttpGet("test-sliding")]
-    [EnableRateLimiting("sliding")]
-    public IActionResult TestSliding()
-    {
-        Thread.Sleep(6000);
-        return Ok();
     }
 }
