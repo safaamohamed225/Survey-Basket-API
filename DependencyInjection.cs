@@ -74,6 +74,7 @@ public static class DependencyInjection
         //.AddDbContextCheck<ApplicationDbContext>(name:"database");
 
         services.AddRateLimitingConfig();
+        services.AddApiVersioning();
 
         return services;
     }
