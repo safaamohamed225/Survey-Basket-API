@@ -1,4 +1,5 @@
 ﻿
+using Asp.Versioning;
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -74,7 +75,14 @@ public static class DependencyInjection
         //.AddDbContextCheck<ApplicationDbContext>(name:"database");
 
         services.AddRateLimitingConfig();
-        services.AddApiVersioning();
+        services.AddApiVersioning(options=>
+        { 
+          options.ApiVersionReader = new UrlSegmentApiVersionReader();
+        }).AddApiExplorer(options =>
+        {
+            options.GroupNameFormat = "'v'V";
+            options.SubstituteApiVersionInUrl = true;
+        });
 
         return services;
     }
