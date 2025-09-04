@@ -76,8 +76,8 @@ public static class DependencyInjection
 
         services.AddRateLimitingConfig();
         services.AddApiVersioning(options=>
-        { 
-          options.ApiVersionReader = new UrlSegmentApiVersionReader();
+        {
+            options.ApiVersionReader = new HeaderApiVersionReader("api-version");
         }).AddApiExplorer(options =>
         {
             options.GroupNameFormat = "'v'V";
