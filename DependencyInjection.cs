@@ -72,7 +72,7 @@ public static class DependencyInjection
             .AddUrlGroup(name: "google.Api", uri: new Uri("https://www.google.com"), tags: ["api"])
             .AddUrlGroup(name: "meta.Api", uri: new Uri("https://www.facebook.com"), tags: ["api"])
             .AddCheck<MailProviderHealthCheck>(name: "mail_provider");
-        //.AddDbContextCheck<ApplicationDbContext>(name:"database");
+          //.AddDbContextCheck<ApplicationDbContext>(name:"database");
 
         services.AddRateLimitingConfig();
         services.AddApiVersioning(options=>
@@ -81,9 +81,7 @@ public static class DependencyInjection
             options.AssumeDefaultVersionWhenUnspecified = true;
 
             options.ReportApiVersions = true;
-
-            options.ApiVersionReader = new MediaTypeApiVersionReader("x-api-version");
-            //options.ApiVersionReader = new HeaderApiVersionReader("api-version");
+            options.ApiVersionReader = new HeaderApiVersionReader("api-version");
         }).AddApiExplorer(options =>
         {
             options.GroupNameFormat = "'v'V";
