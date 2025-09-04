@@ -77,6 +77,9 @@ public static class DependencyInjection
         services.AddRateLimitingConfig();
         services.AddApiVersioning(options=>
         {
+            options.DefaultApiVersion = new ApiVersion(1);
+            options.AssumeDefaultVersionWhenUnspecified = true;
+
             options.ApiVersionReader = new HeaderApiVersionReader("api-version");
         }).AddApiExplorer(options =>
         {
