@@ -82,7 +82,8 @@ public static class DependencyInjection
 
             options.ReportApiVersions = true;
 
-            options.ApiVersionReader = new HeaderApiVersionReader("api-version");
+            options.ApiVersionReader = new QueryStringApiVersionReader("api-version");
+            //options.ApiVersionReader = new HeaderApiVersionReader("api-version");
         }).AddApiExplorer(options =>
         {
             options.GroupNameFormat = "'v'V";
