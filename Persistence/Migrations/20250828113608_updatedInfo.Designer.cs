@@ -409,7 +409,7 @@ namespace SurveyBasket.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ROLE.COM",
                             NormalizedUserName = "ADMIN@ROLE.COM",
-                            PasswordHash = "Safa$1225",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKRku5u6K325Irl1Utujiuil/WUhjTvShS9mJLXxO+2v/GKrMT1Ofhdp/0taFUO2bA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "admin@role.com",
                             TwoFactorEnabled = false

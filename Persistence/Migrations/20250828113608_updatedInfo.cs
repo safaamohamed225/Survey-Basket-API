@@ -15,7 +15,7 @@ namespace SurveyBasket.Migrations
                 keyColumn: "Id",
                 keyValue: "0198d5c2-4e9d-713a-aa78-e6853aee4737",
                 columns: new[] { "Email", "FirstName", "LastName", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "SecurityStamp", "UserName" },
-                values: new object[] { "admin@role.com", "Safa", "Muhammad", "ADMIN@ROLE.COM", "ADMIN@ROLE.COM", "Safa$1225", "admin@role.com", null });
+                values: new object[] { "admin@role.com", "Safa", "Muhammad", "ADMIN@ROLE.COM", "ADMIN@ROLE.COM", "AQAAAAIAAYagAAAAEKRku5u6K325Irl1Utujiuil/WUhjTvShS9mJLXxO+2v/GKrMT1Ofhdp/0taFUO2bA==", "admin@role.com", null });
         }
 
         /// <inheritdoc />
