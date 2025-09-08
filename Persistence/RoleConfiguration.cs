@@ -1,8 +1,4 @@
-﻿
-using Microsoft.Identity.Client;
-using SurveyBasket.Abstractions.Consts;
-
-namespace SurveyBasket.Persistence
+﻿namespace SurveyBasket.Persistence
 {
     public class RoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
     {
@@ -15,7 +11,7 @@ namespace SurveyBasket.Persistence
                     NormalizedName= DefaultRoles.Admin.Name.ToUpper(),
                     ConcurrencyStamp= DefaultRoles.Admin.ConcurrencyStamp
                     },
-                
+
                    new ApplicationRole
                    {
                        Id = DefaultRoles.Member.Id,
@@ -26,7 +22,7 @@ namespace SurveyBasket.Persistence
                    }
                    ]
                 );
-           
+
         }
     }
 }

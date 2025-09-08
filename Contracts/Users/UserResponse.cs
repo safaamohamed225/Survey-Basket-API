@@ -7,5 +7,5 @@
         string Email,
         bool IsDisabled,
         IEnumerable<string> Roles
-        );    
+        );
 }

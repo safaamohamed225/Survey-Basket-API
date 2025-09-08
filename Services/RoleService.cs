@@ -1,6 +1,4 @@
-﻿using SurveyBasket.Abstractions.Consts;
-using SurveyBasket.Contracts.Roles;
-using System.Collections;
+﻿using SurveyBasket.Contracts.Roles;
 
 namespace SurveyBasket.Services
 {
@@ -15,9 +13,9 @@ namespace SurveyBasket.Services
             .ProjectToType<RoleResponse>()
             .ToListAsync(cancellationToken);
 
-    public async Task<Result<RoleDetailResponse>> GetAsync(string id)
+        public async Task<Result<RoleDetailResponse>> GetAsync(string id)
         {
-            if(await _roleManager.FindByIdAsync(id) is not { } role)
+            if (await _roleManager.FindByIdAsync(id) is not { } role)
                 return Result.Failure<RoleDetailResponse>(RoleErrors.RoleNotFound);
 
             var permissions = await _roleManager.GetClaimsAsync(role);
@@ -30,11 +28,11 @@ namespace SurveyBasket.Services
         {
             var roleIsExists = await _roleManager.RoleExistsAsync(request.Name);
 
-            if(roleIsExists)
+            if (roleIsExists)
                 return Result.Failure<RoleDetailResponse>(RoleErrors.RoleAlreadyExists);
 
             var allowedPermissions = Permissions.GetAllPermissions();
-            if(request.Permissions.Except(allowedPermissions).Any())
+            if (request.Permissions.Except(allowedPermissions).Any())
                 return Result.Failure<RoleDetailResponse>(RoleErrors.InvalidPermissions);
 
             var role = new ApplicationRole
@@ -44,7 +42,7 @@ namespace SurveyBasket.Services
             };
             var result = await _roleManager.CreateAsync(role);
 
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 var permissions = request.Permissions
                     .Select(p => new IdentityRoleClaim<string>
@@ -59,18 +57,18 @@ namespace SurveyBasket.Services
 
                 var response = new RoleDetailResponse(role.Id, role.Name, role.IsDeleted, request.Permissions);
                 return Result.Success(response);
-            }   
+            }
             var error = result.Errors.First();
-            return Result.Failure<RoleDetailResponse>(new Error( error.Code, error.Description, StatusCodes.Status400BadRequest ));
+            return Result.Failure<RoleDetailResponse>(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
         }
 
         public async Task<Result> UpdateAsync(string id, RoleRequest request)
         {
-            var roleIsExists = await _roleManager.Roles.AnyAsync(r=>r.Name == request.Name && r.Id != id);
+            var roleIsExists = await _roleManager.Roles.AnyAsync(r => r.Name == request.Name && r.Id != id);
 
             if (roleIsExists)
                 return Result.Failure<RoleDetailResponse>(RoleErrors.RoleAlreadyExists);
-            if(await _roleManager.FindByIdAsync(id) is not { } role)
+            if (await _roleManager.FindByIdAsync(id) is not { } role)
                 return Result.Failure<RoleDetailResponse>(RoleErrors.RoleNotFound);
 
             var allowedPermissions = Permissions.GetAllPermissions();
@@ -81,7 +79,7 @@ namespace SurveyBasket.Services
 
             var result = await _roleManager.UpdateAsync(role);
 
-           if(result.Succeeded)
+            if (result.Succeeded)
             {
                 var existingPermissions = await _context.RoleClaims
                     .Where(c => c.RoleId == role.Id && c.ClaimType == Permissions.Type)
@@ -104,7 +102,7 @@ namespace SurveyBasket.Services
 
                 await _context.AddRangeAsync(permissionsToAdd);
                 await _context.SaveChangesAsync();
-                
+
                 return Result.Success();
 
             }

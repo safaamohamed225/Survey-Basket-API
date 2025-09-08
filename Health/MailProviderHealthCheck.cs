@@ -1,8 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Options;
-using SurveyBasket.Settings;
 
 namespace SurveyBasket.Health
 {
@@ -20,7 +18,7 @@ namespace SurveyBasket.Health
 
                 return await Task.FromResult(HealthCheckResult.Healthy("Mail provider is reachable."));
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 return await Task.FromResult(HealthCheckResult.Unhealthy("Mail provider is not reachable.", exception));
             }

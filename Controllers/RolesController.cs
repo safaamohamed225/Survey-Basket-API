@@ -1,8 +1,4 @@
-﻿
-using SurveyBasket.Abstractions.Consts;
-using SurveyBasket.Authentication.Filters;
-using SurveyBasket.Contracts.Roles;
-using System.Net.WebSockets;
+﻿using SurveyBasket.Contracts.Roles;
 
 namespace SurveyBasket.Controllers
 {
@@ -23,7 +19,7 @@ namespace SurveyBasket.Controllers
         [HasPermission(Permissions.GetRoles)]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
-           var result = await _roleService.GetAsync(id);
+            var result = await _roleService.GetAsync(id);
             return result.IsSuccess ? Ok(result.Value) : result.ToProblem();
         }
 
@@ -32,7 +28,7 @@ namespace SurveyBasket.Controllers
         public async Task<IActionResult> Add([FromBody] RoleRequest request)
         {
             var result = await _roleService.AddAsync(request);
-            return result.IsSuccess ? CreatedAtAction(nameof(Add), new {result.Value.Id}, result.Value) : result.ToProblem();
+            return result.IsSuccess ? CreatedAtAction(nameof(Add), new { result.Value.Id }, result.Value) : result.ToProblem();
         }
         [HttpPut("{id}")]
         [HasPermission(Permissions.UpdateRoles)]

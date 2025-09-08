@@ -1,7 +1,4 @@
-﻿
-using System.Threading.Tasks;
-
-namespace SurveyBasket.Services;
+﻿namespace SurveyBasket.Services;
 
 public interface IAuthService
 {

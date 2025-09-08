@@ -1,7 +1,4 @@
-﻿using SurveyBasket.Abstractions.Consts;
-using SurveyBasket.Contracts.Users;
-
-namespace SurveyBasket.Services
+﻿namespace SurveyBasket.Services
 {
     public class UserService(UserManager<ApplicationUser> userManager, IRoleService roleService, ApplicationDbContext context) : IUserService
     {
@@ -25,20 +22,20 @@ namespace SurveyBasket.Services
                        u.IsDisabled,
                        Roles = roles.Select(r => r.Name!).ToList()
                    }
-                  ).GroupBy(user=>new {user.Id, user.FirstName, user.LastName, user.Email, user.IsDisabled})
-                   .Select(u=>new UserResponse(
+                  ).GroupBy(user => new { user.Id, user.FirstName, user.LastName, user.Email, user.IsDisabled })
+                   .Select(u => new UserResponse(
                        u.Key.Id,
                        u.Key.FirstName,
                        u.Key.LastName,
                        u.Key.Email,
                        u.Key.IsDisabled,
-                       u.SelectMany(r=>r.Roles)
+                       u.SelectMany(r => r.Roles)
                        ))
                        .ToListAsync(cancellationToken);
 
         public async Task<Result<UserResponse>> GetUserAsync(string id)
         {
-            if(await _userManager.FindByIdAsync(id) is not{} user)
+            if (await _userManager.FindByIdAsync(id) is not { } user)
                 return Result.Failure<UserResponse>(UserErrors.UserNotFound);
             var userRoles = await _userManager.GetRolesAsync(user);
 
@@ -57,18 +54,18 @@ namespace SurveyBasket.Services
 
         public async Task<Result<UserResponse>> AddAsync(CreateUserRequest request, CancellationToken cancellationToken = default)
         {
-            var emailIsExists = await _userManager.Users.AnyAsync(e=>e.Email ==request.Email, cancellationToken);
+            var emailIsExists = await _userManager.Users.AnyAsync(e => e.Email == request.Email, cancellationToken);
             if (emailIsExists)
                 return Result.Failure<UserResponse>(UserErrors.DublicatedEmail);
-            var allowedRoles = await _roleService.GetAllAsync(cancellationToken:cancellationToken);
+            var allowedRoles = await _roleService.GetAllAsync(cancellationToken: cancellationToken);
 
-            if(request.Roles.Except(allowedRoles.Select(r=>r.Name)).Any())
+            if (request.Roles.Except(allowedRoles.Select(r => r.Name)).Any())
                 return Result.Failure<UserResponse>(UserErrors.InvalidRoles);
 
             var user = request.Adapt<ApplicationUser>();
             var result = await _userManager.CreateAsync(user, request.Password);
 
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 await _userManager.AddToRolesAsync(user, request.Roles);
                 var userResponse = (user, request.Roles).Adapt<UserResponse>();
@@ -90,7 +87,7 @@ namespace SurveyBasket.Services
             if (request.Roles.Except(allowedRoles.Select(r => r.Name)).Any())
                 return Result.Failure(UserErrors.InvalidRoles);
 
-            if(await _userManager.FindByIdAsync(id) is not {} user)
+            if (await _userManager.FindByIdAsync(id) is not { } user)
                 return Result.Failure(UserErrors.UserNotFound);
 
             user = request.Adapt(user);
@@ -99,9 +96,9 @@ namespace SurveyBasket.Services
 
             if (result.Succeeded)
             {
-              await _context.UserRoles
-                    .Where(ur => ur.UserId == id )
-                    .ExecuteDeleteAsync(cancellationToken);
+                await _context.UserRoles
+                      .Where(ur => ur.UserId == id)
+                      .ExecuteDeleteAsync(cancellationToken);
                 await _userManager.AddToRolesAsync(user, request.Roles);
 
                 return Result.Success();
@@ -133,7 +130,7 @@ namespace SurveyBasket.Services
 
         public async Task<Result> UnlockAsync(string id)
         {
-            if(await _userManager.FindByIdAsync(id) is not { } user)
+            if (await _userManager.FindByIdAsync(id) is not { } user)
                 return Result.Failure(UserErrors.UserNotFound);
 
             var result = await _userManager.SetLockoutEndDateAsync(user, null);

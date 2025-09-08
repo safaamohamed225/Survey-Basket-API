@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using SurveyBasket.Abstractions.Consts;
-using SurveyBasket.Authentication.Filters;
-
-namespace SurveyBasket.Controllers
+﻿namespace SurveyBasket.Controllers
 {
     [Route("api/polls/{pollId}/[controller]")]
     [ApiController]
@@ -14,7 +10,7 @@ namespace SurveyBasket.Controllers
         [HttpGet("row-data")]
         public async Task<IActionResult> PollVote([FromRoute] int pollId, CancellationToken cancellationToken)
         {
-            var result =  await _resultService.GetPollVotesAsync(pollId, cancellationToken);
+            var result = await _resultService.GetPollVotesAsync(pollId, cancellationToken);
             return result.IsSuccess ? Ok(result.Value) : result.ToProblem();
         }
 

@@ -1,8 +1,6 @@
 ﻿using Asp.Versioning;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.RateLimiting;
-using SurveyBasket.Abstractions.Consts;
 using SurveyBasket.Contracts.Votes;
 
 namespace SurveyBasket.Controllers;
@@ -19,7 +17,7 @@ public class VotesController(IQuestionService questionService, IVoteService vote
     private readonly IVoteService _voteService = voteService;
 
     [HttpGet("")]
-    [OutputCache(PolicyName ="Polls")]
+    [OutputCache(PolicyName = "Polls")]
     public async Task<IActionResult> Start([FromRoute] int pollId, CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();

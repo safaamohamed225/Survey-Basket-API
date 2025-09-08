@@ -1,6 +1,4 @@
-﻿using SurveyBasket.Contracts.Results;
-
-namespace SurveyBasket.Services
+﻿namespace SurveyBasket.Services
 {
     public interface IResultService
     {

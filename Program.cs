@@ -1,10 +1,10 @@
 
 using Hangfire;
 using HangfireBasicAuthenticationFilter;
-using Serilog;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Scalar.AspNetCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +38,7 @@ app.UseHangfireDashboard("/jobs", new DashboardOptions
         {
             User = app.Configuration.GetValue<string>("HangfireSettings:Username"),
             Pass = app.Configuration.GetValue<string>("HangfireSettings:Password")
-        }      
+        }
     ],
 
     DashboardTitle = "Survey Basket Dashboard"

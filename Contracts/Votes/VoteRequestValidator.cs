@@ -7,8 +7,8 @@
             RuleFor(v => v.Answers)
                 .NotEmpty();
 
-            RuleForEach(a=>a.Answers)
-                .SetInheritanceValidator(v=>v.Add(new VoteAnswerRequestValidator()));
+            RuleForEach(a => a.Answers)
+                .SetInheritanceValidator(v => v.Add(new VoteAnswerRequestValidator()));
         }
     }
 }

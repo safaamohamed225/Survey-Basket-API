@@ -4,5 +4,5 @@
         string Question,
         IEnumerable<VotesPerAnswerResponse> SelectedAnswers
         );
-  
+
 }

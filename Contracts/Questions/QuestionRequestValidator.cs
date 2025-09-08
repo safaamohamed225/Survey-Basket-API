@@ -1,5 +1,4 @@
 ﻿namespace SurveyBasket.Contracts.Questions;
-
 public class QuestionRequestValidator : AbstractValidator<QuestionRequest>
 {
 
@@ -18,7 +17,7 @@ public class QuestionRequestValidator : AbstractValidator<QuestionRequest>
             .When(x => x.Answers != null);
 
         RuleFor(x => x.Answers)
-         .Must(x => x.Distinct().Count()==x.Count)
+         .Must(x => x.Distinct().Count() == x.Count)
          .WithMessage("You cannot add duplicated answers for the same question!")
          .When(x => x.Answers != null);
     }

@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-
-namespace SurveyBasket.Extensions;
+﻿namespace SurveyBasket.Extensions;
 
 public static class UserExtensions
 {

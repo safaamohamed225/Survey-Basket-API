@@ -1,8 +1,4 @@
-﻿
-using SurveyBasket.Contracts.Questions;
-using System.Collections.Generic;
-
-namespace SurveyBasket.Services
+﻿namespace SurveyBasket.Services
 {
     public class ResultService(ApplicationDbContext context) : IResultService
     {

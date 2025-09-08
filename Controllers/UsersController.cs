@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SurveyBasket.Abstractions.Consts;
-using SurveyBasket.Authentication.Filters;
-using SurveyBasket.Contracts.Users;
-using System.Formats.Asn1;
-
-namespace SurveyBasket.Controllers
+﻿namespace SurveyBasket.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -34,27 +27,27 @@ namespace SurveyBasket.Controllers
         public async Task<IActionResult> Add([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
         {
             var result = await _userService.AddAsync(request, cancellationToken);
-            return result.IsSuccess? CreatedAtAction(nameof(Get), new { result.Value.Id }, result.Value) : result.ToProblem();
+            return result.IsSuccess ? CreatedAtAction(nameof(Get), new { result.Value.Id }, result.Value) : result.ToProblem();
         }
 
         [HttpPut("{id}")]
         [HasPermission(Permissions.UpdateUsers)]
-        public async Task<IActionResult> Update([FromRoute]string id, [FromBody] UpdateUserRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateUserRequest request, CancellationToken cancellationToken)
         {
             var result = await _userService.UpdateAsync(id, request, cancellationToken);
             return result.IsSuccess ? NoContent() : result.ToProblem();
         }
 
         [HttpPut("{id}/toggle-status")]
-        public async Task<IActionResult> ToggleStatus([FromRoute]string id)
+        public async Task<IActionResult> ToggleStatus([FromRoute] string id)
         {
             var result = await _userService.ToggleStatusAsync(id);
 
-            return result.IsSuccess ? NoContent() : result.ToProblem(); 
+            return result.IsSuccess ? NoContent() : result.ToProblem();
         }
 
         [HttpPut("{id}/unlock")]
-        public async Task<IActionResult> Unlock([FromRoute]string id)
+        public async Task<IActionResult> Unlock([FromRoute] string id)
         {
             var result = await _userService.UnlockAsync(id);
             return result.IsSuccess ? NoContent() : result.ToProblem();

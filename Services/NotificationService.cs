@@ -1,9 +1,5 @@
-﻿
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using SurveyBasket.Abstractions.Consts;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using SurveyBasket.Helpers;
-using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace SurveyBasket.Services
 {
@@ -21,7 +17,7 @@ namespace SurveyBasket.Services
         {
             IEnumerable<Poll> polls = [];
 
-            if(pollId.HasValue)
+            if (pollId.HasValue)
             {
                 var poll = await _context.Polls.FirstOrDefaultAsync(x => x.Id == pollId && x.IsPublished);
                 polls = [poll!];
@@ -38,9 +34,9 @@ namespace SurveyBasket.Services
 
             var origin = _httpContextAccessor.HttpContext?.Request.Headers.Origin;
 
-            foreach(var poll in polls)
+            foreach (var poll in polls)
             {
-                foreach(var user in users)
+                foreach (var user in users)
                 {
                     var placeholders = new Dictionary<string, string>
                     {

@@ -1,6 +1,4 @@
-﻿using SurveyBasket.Contracts.Users;
-
-namespace SurveyBasket.Services
+﻿namespace SurveyBasket.Services
 {
     public interface IUserService
     {
@@ -12,6 +10,6 @@ namespace SurveyBasket.Services
         Task<Result> UnlockAsync(string id);
         Task<Result<UserProfileResponse>> GetProfileAsync(string userId);
         Task<Result> UpdateProfileAsync(string userId, UpdateProfileRequest request);
-        Task<Result> ChangePasswordAsync(string userId, ChangePasswordRequest request);        
+        Task<Result> ChangePasswordAsync(string userId, ChangePasswordRequest request);
     }
 }

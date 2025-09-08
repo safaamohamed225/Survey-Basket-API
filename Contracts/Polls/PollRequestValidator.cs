@@ -18,7 +18,6 @@ public class PollRequestValidator : AbstractValidator<PollRequest>
             .Must(HasValidDate)
             .WithName(nameof(Poll.EndsAt))
             .WithMessage("{PropertyName} must be greater than or equal to start Date");
-
     }
 
     private bool HasValidDate(PollRequest pollRequest)

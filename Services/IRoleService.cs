@@ -1,5 +1,4 @@
 ﻿using SurveyBasket.Contracts.Roles;
-using System.Collections;
 
 namespace SurveyBasket.Services
 {

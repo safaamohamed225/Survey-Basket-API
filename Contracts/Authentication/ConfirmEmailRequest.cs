@@ -3,6 +3,6 @@
     public record ConfirmEmailRequest
    (
         string UserId,
-        string Code     
+        string Code
    );
 }

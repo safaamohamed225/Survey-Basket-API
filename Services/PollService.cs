@@ -1,13 +1,11 @@
-﻿
-using Azure.Core;
-using Hangfire;
+﻿using Hangfire;
 
 namespace SurveyBasket.Services;
 
 public class PollService(ApplicationDbContext context,
     INotificationService notificationService) : IPollService
 {
-   private readonly ApplicationDbContext _context=context;
+    private readonly ApplicationDbContext _context = context;
     private readonly INotificationService _notificationService = notificationService;
 
     public async Task<IEnumerable<PollResponse>> GetPollsAsync(CancellationToken cancellationToken = default) =>
@@ -35,17 +33,17 @@ public class PollService(ApplicationDbContext context,
 
     public async Task<Result<PollResponse>> GetAsync(int id, CancellationToken cancellationToken = default)
     {
-        var poll=await _context.Polls.FindAsync(id, cancellationToken);
+        var poll = await _context.Polls.FindAsync(id, cancellationToken);
 
         return poll is not null
             ? Result.Success(poll.Adapt<PollResponse>())
-            : Result.Failure <PollResponse>(PollErrors.PollNotFound);
+            : Result.Failure<PollResponse>(PollErrors.PollNotFound);
     }
     public async Task<Result<PollResponse>> AddAsync(PollRequest request, CancellationToken cancellationToken = default)
     {
         var isExistingTitle = await _context.Polls.AnyAsync(x => x.Title == request.Title, cancellationToken: cancellationToken);
-        if(isExistingTitle)
-             return Result.Failure<PollResponse>(PollErrors.DuplicatedPollTitle);
+        if (isExistingTitle)
+            return Result.Failure<PollResponse>(PollErrors.DuplicatedPollTitle);
 
         var poll = request.Adapt<Poll>();
 
@@ -57,7 +55,7 @@ public class PollService(ApplicationDbContext context,
 
     public async Task<Result> UpdateAsync(int id, PollRequest request, CancellationToken cancellationToken = default)
     {
-        var isExistingTitle = await _context.Polls.AnyAsync(x => x.Title == request.Title && x.Id!=id, cancellationToken: cancellationToken);
+        var isExistingTitle = await _context.Polls.AnyAsync(x => x.Title == request.Title && x.Id != id, cancellationToken: cancellationToken);
 
         var currentPoll = await _context.Polls.FindAsync(id, cancellationToken);
 

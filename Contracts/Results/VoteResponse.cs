@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace SurveyBasket.Contracts.Results
+﻿namespace SurveyBasket.Contracts.Results
 {
     public record VoteResponse
       (

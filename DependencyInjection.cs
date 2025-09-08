@@ -2,16 +2,11 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Hangfire;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.IdentityModel.Tokens;
-using SurveyBasket.Abstractions.Consts;
-using SurveyBasket.Authentication.Filters;
 using SurveyBasket.Health;
 using SurveyBasket.OpenApiTransformers;
-using SurveyBasket.Settings;
+
 
 using System.Text;
 using System.Threading.RateLimiting;
@@ -78,7 +73,7 @@ public static class DependencyInjection
             .AddCheck<MailProviderHealthCheck>(name: "mail_provider");
 
         services.AddRateLimitingConfig();
-        services.AddApiVersioning(options=>
+        services.AddApiVersioning(options =>
         {
             options.DefaultApiVersion = new ApiVersion(1);
             options.AssumeDefaultVersionWhenUnspecified = true;
@@ -230,33 +225,6 @@ public static class DependencyInjection
                 options.QueueLimit = 100;
                 options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
             });
-
-            //rateLimiterOptions.AddTokenBucketLimiter("token", options =>
-            //{
-            //    options.TokenLimit = 2;
-            //    options.QueueLimit = 1;
-            //    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-            //    options.ReplenishmentPeriod = TimeSpan.FromSeconds(30);
-            //    options.TokensPerPeriod = 2;
-            //    options.AutoReplenishment = true;
-            //});
-
-            //rateLimiterOptions.AddFixedWindowLimiter("fixed", options =>
-            //{
-            //    options.PermitLimit = 2;
-            //    options.Window = TimeSpan.FromSeconds(20);
-            //    options.QueueLimit = 1;
-            //    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-            //});
-
-            //rateLimiterOptions.AddSlidingWindowLimiter("sliding", options =>
-            //{
-            //    options.PermitLimit = 2;
-            //    options.Window = TimeSpan.FromSeconds(20);
-            //    options.SegmentsPerWindow = 2;
-            //    options.QueueLimit = 1;
-            //    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-            //});
         });
 
         return services;

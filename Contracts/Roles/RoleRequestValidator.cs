@@ -13,7 +13,7 @@
                 .NotEmpty();
 
             RuleForEach(r => r.Permissions)
-                .Must(p=>p.Distinct().Count() == p.Count())
+                .Must(p => p.Distinct().Count() == p.Count())
                 .WithMessage("Permissions must be unique")
                 .When(p => p.Permissions is not null);
         }

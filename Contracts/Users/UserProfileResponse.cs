@@ -6,6 +6,6 @@
         string UserName,
         string FirstName,
         string LastName
-        
+
   );
 }

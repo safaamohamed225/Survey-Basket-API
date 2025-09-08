@@ -8,12 +8,12 @@ using System.Linq.Dynamic.Core;
 
 namespace SurveyBasket.Services;
 
-public class QuestionService(ApplicationDbContext context, HybridCache hybridCache , ILogger<QuestionService> logger) : IQuestionService
+public class QuestionService(ApplicationDbContext context, HybridCache hybridCache, ILogger<QuestionService> logger) : IQuestionService
 {
     private readonly ApplicationDbContext _context = context;
     private readonly HybridCache _hybridCache = hybridCache;
     private readonly ILogger<QuestionService> _logger = logger;
-    private const string _cachePrefix = "availableQuestion"; 
+    private const string _cachePrefix = "availableQuestion";
 
     public async Task<Result<PaginatedList<QuestionResponse>>> GetAllAsync(int pollId, RequestFilters filters, CancellationToken cancellationToken)
     {
@@ -24,18 +24,18 @@ public class QuestionService(ApplicationDbContext context, HybridCache hybridCac
 
         var query = _context.Questions
             .Where(x => x.PollId == pollId);
-        if(!string.IsNullOrEmpty(filters.SearchTerm))
-        { 
+        if (!string.IsNullOrEmpty(filters.SearchTerm))
+        {
             query = query.Where(x => x.Content.Contains(filters.SearchTerm));
         }
-        if(!string.IsNullOrEmpty(filters.SortBy))
+        if (!string.IsNullOrEmpty(filters.SortBy))
         {
             query = query.OrderBy($"{filters.SortBy} {filters.SortDirection}");
         }
-          var source = query
-            .Include(x => x.Answers)
-            .ProjectToType<QuestionResponse>()
-            .AsNoTracking();
+        var source = query
+          .Include(x => x.Answers)
+          .ProjectToType<QuestionResponse>()
+          .AsNoTracking();
 
         var questions = await PaginatedList<QuestionResponse>.CreateAsync(source, filters.PageNumber, filters.PageSize, cancellationToken);
 
@@ -80,7 +80,7 @@ public class QuestionService(ApplicationDbContext context, HybridCache hybridCac
                       q.Id,
                       q.Content,
                       q.Answers.Where(a => a.IsActive).Select(a => new Contracts.Answers.AnswerResponse(a.Id, a.Content))
-                  )).AsNoTracking().ToListAsync(cancellationToken)    
+                  )).AsNoTracking().ToListAsync(cancellationToken)
             );
 
         return Result.Success(questions!);

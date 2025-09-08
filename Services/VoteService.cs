@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SurveyBasket.Contracts.Questions;
-using SurveyBasket.Contracts.Votes;
+﻿using SurveyBasket.Contracts.Votes;
 
 namespace SurveyBasket.Services;
 

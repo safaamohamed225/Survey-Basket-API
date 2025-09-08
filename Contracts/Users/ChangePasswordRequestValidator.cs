@@ -1,8 +1,6 @@
-﻿using SurveyBasket.Abstractions.Consts;
-
-namespace SurveyBasket.Contracts.Users
+﻿namespace SurveyBasket.Contracts.Users
 {
-    public class ChangePasswordRequestValidator :AbstractValidator<ChangePasswordRequest>
+    public class ChangePasswordRequestValidator : AbstractValidator<ChangePasswordRequest>
     {
         public ChangePasswordRequestValidator()
         {

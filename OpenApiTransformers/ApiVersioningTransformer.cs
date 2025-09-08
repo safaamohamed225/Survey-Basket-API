@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 
 namespace SurveyBasket.OpenApiTransformers
 {
-    public sealed class ApiVersioningTransformer(ApiVersionDescription description ) : IOpenApiDocumentTransformer
+    public sealed class ApiVersioningTransformer(ApiVersionDescription description) : IOpenApiDocumentTransformer
     {
         public ApiVersionDescription Description => description;
         public Task TransformAsync(OpenApiDocument document, OpenApiDocumentTransformerContext context, CancellationToken cancellationToken)

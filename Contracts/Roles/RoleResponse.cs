@@ -5,5 +5,5 @@
         string Name,
         bool IsDeleted
         );
-   
+
 }

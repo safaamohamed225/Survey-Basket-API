@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Reflection;
-
-namespace SurveyBasket.Persistence;
+﻿namespace SurveyBasket.Persistence;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IHttpContextAccessor httpContextAccessor) :
     IdentityDbContext<ApplicationUser, ApplicationRole, string>(options)

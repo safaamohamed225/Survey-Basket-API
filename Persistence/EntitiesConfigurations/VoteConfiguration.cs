@@ -7,4 +7,4 @@ public class VoteConfiguration : IEntityTypeConfiguration<Vote>
     {
         builder.HasIndex(x => new { x.PollId, x.UserId }).IsUnique();
     }
-} 
+}

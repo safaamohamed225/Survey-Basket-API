@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
-
-namespace SurveyBasket.Authentication.Filters
+﻿namespace SurveyBasket.Authentication.Filters
 {
     public class PermissionAuthorizationPolicyProvider(IOptions<AuthorizationOptions> options) : DefaultAuthorizationPolicyProvider(options)
     {

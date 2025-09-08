@@ -1,13 +1,7 @@
 ﻿using Hangfire;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Server.Kestrel.Transport.NamedPipes;
 using Microsoft.AspNetCore.WebUtilities;
-using OneOf;
-using SurveyBasket.Abstractions.Consts;
-using SurveyBasket.Authentication;
 using SurveyBasket.Helpers;
-using System.Runtime.InteropServices.Marshalling;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -37,13 +31,13 @@ public class AuthService(UserManager<ApplicationUser> userManager,
 
         if (await _userManager.FindByEmailAsync(email) is not { } user)
             return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
-        if(user.IsDisabled)
+        if (user.IsDisabled)
             return Result.Failure<AuthResponse>(UserErrors.DisabledUser);
 
         var result = await _signInManager.PasswordSignInAsync(user, password, false, true);
-        if(result.Succeeded)
+        if (result.Succeeded)
         {
-           var (userRoles, userPermissions) = await GetUserRolesAndPermissions(user, cancellationToken);
+            var (userRoles, userPermissions) = await GetUserRolesAndPermissions(user, cancellationToken);
 
             var (token, expiresIn) = _jwtProvider.GenerateToken(user, userRoles, userPermissions);
             var refreshToken = GenerateRefreshToken();
@@ -62,13 +56,13 @@ public class AuthService(UserManager<ApplicationUser> userManager,
             return Result.Success(response);
         }
         var error = result.IsNotAllowed
-            ?UserErrors.EmailNotConfirmed
-            :result.IsLockedOut
+            ? UserErrors.EmailNotConfirmed
+            : result.IsLockedOut
             ? UserErrors.LockedUser
-            :UserErrors.InvalidCredentials;
+            : UserErrors.InvalidCredentials;
 
-        return Result.Failure<AuthResponse>(error); 
-     
+        return Result.Failure<AuthResponse>(error);
+
     }
 
     public async Task<Result<AuthResponse>> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
@@ -136,17 +130,17 @@ public class AuthService(UserManager<ApplicationUser> userManager,
         return Result.Success();
     }
 
-    public async Task<Result> RegisterAsync(RegisterRequest requet, CancellationToken cancellationToken=default)
+    public async Task<Result> RegisterAsync(RegisterRequest requet, CancellationToken cancellationToken = default)
     {
         var emailExists = await _userManager.Users.AnyAsync(x => x.Email == requet.Email, cancellationToken);
 
-        if(emailExists)
+        if (emailExists)
             return Result.Failure(UserErrors.DublicatedEmail);
 
         var user = requet.Adapt<ApplicationUser>();
 
         var result = await _userManager.CreateAsync(user, requet.Password);
-        if(result.Succeeded)
+        if (result.Succeeded)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -178,7 +172,7 @@ public class AuthService(UserManager<ApplicationUser> userManager,
         {
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
         }
-        catch(FormatException)
+        catch (FormatException)
         {
             return Result.Failure(UserErrors.InvalidCode);
         }
@@ -203,10 +197,10 @@ public class AuthService(UserManager<ApplicationUser> userManager,
         if (user.EmailConfirmed)
             return Result.Failure(UserErrors.DuplicatedEmailConfirmation);
 
-         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-         _logger.LogInformation("Confirmation Code: {code}", code);
+        _logger.LogInformation("Confirmation Code: {code}", code);
 
         await SendEmailConfirmation(user, code);
 
@@ -238,7 +232,7 @@ public class AuthService(UserManager<ApplicationUser> userManager,
             return Result.Success();
 
         if (!user.EmailConfirmed)
-            return Result.Failure(UserErrors.EmailNotConfirmed with { StatusCode = StatusCodes.Status400BadRequest});
+            return Result.Failure(UserErrors.EmailNotConfirmed with { StatusCode = StatusCodes.Status400BadRequest });
 
         var code = await _userManager.GeneratePasswordResetTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -265,7 +259,7 @@ public class AuthService(UserManager<ApplicationUser> userManager,
             var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Code));
             result = await _userManager.ResetPasswordAsync(user, code, request.NewPassword);
         }
-        catch(FormatException)
+        catch (FormatException)
         {
             result = IdentityResult.Failed(_userManager.ErrorDescriber.InvalidToken());
         }

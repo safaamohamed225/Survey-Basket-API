@@ -1,6 +1,4 @@
-﻿using SurveyBasket.Abstractions.Consts;
-
-namespace SurveyBasket.Persistence
+﻿namespace SurveyBasket.Persistence
 {
     public class RoleClaimConfiguration : IEntityTypeConfiguration<IdentityRoleClaim<string>>
     {
@@ -8,11 +6,11 @@ namespace SurveyBasket.Persistence
         {
             var permissions = Permissions.GetAllPermissions();
             var adminClaims = new List<IdentityRoleClaim<string>>();
-            for(var i = 0; i < permissions.Count; i++)
+            for (var i = 0; i < permissions.Count; i++)
             {
                 adminClaims.Add(new IdentityRoleClaim<string>
                 {
-                    Id = i + 1,   
+                    Id = i + 1,
                     ClaimType = Permissions.Type,
                     ClaimValue = permissions[i],
                     RoleId = DefaultRoles.Admin.Id
