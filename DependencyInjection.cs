@@ -42,7 +42,7 @@ public static class DependencyInjection
             options.UseSqlServer(connectionString));
 
         services
-            .AddSwaggerServices()
+            //.AddSwaggerServices()
             .AddMapsterConfig()
             .AddFluentValidationConfig();
 
@@ -87,19 +87,20 @@ public static class DependencyInjection
             options.GroupNameFormat = "'v'V";
             options.SubstituteApiVersionInUrl = true;
         });
-
-        return services;
-    }
-
-
-    private static IServiceCollection AddSwaggerServices(this IServiceCollection services)
-    {
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
 
         return services;
     }
+
+
+    //private static IServiceCollection AddSwaggerServices(this IServiceCollection services)
+    //{
+    //    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    //    services.AddEndpointsApiExplorer();
+    //    services.AddSwaggerGen();
+
+    //    return services;
+    //}
 
     private static IServiceCollection AddMapsterConfig(this IServiceCollection services)
     {
