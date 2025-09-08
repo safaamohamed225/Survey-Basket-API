@@ -171,6 +171,11 @@ public static class DependencyInjection
 
         });
 
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("ApiAdminPolicy", policy =>
+                policy.RequireRole(DefaultRoles.Admin));
+        }); 
         return services;
     }
 
