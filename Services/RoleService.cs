@@ -9,9 +9,9 @@ namespace SurveyBasket.Services
         private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
         private readonly ApplicationDbContext _context = context;
 
-        public async Task<IEnumerable<RoleResponse>> GetAllAsync(bool? includeDisabled = false, CancellationToken cancellationToken = default) =>
+        public async Task<IEnumerable<RoleResponse>> GetAllAsync(bool includeDisabled = false, CancellationToken cancellationToken = default) =>
             await _roleManager.Roles
-            .Where(r => !r.IsDefault && (!r.IsDeleted || (includeDisabled.HasValue && includeDisabled.Value)))
+            .Where(r => !r.IsDefault && (!r.IsDeleted || includeDisabled))
             .ProjectToType<RoleResponse>()
             .ToListAsync(cancellationToken);
 
