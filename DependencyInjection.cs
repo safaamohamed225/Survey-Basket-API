@@ -88,7 +88,7 @@ public static class DependencyInjection
             options.SubstituteApiVersionInUrl = true;
         });
         services.AddEndpointsApiExplorer()
-                 .AddOpenApi("internal");
+                 .AddOpenApi();
 
         return services;
     }
