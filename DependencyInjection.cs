@@ -87,7 +87,8 @@ public static class DependencyInjection
             options.GroupNameFormat = "'v'V";
             options.SubstituteApiVersionInUrl = true;
         });
-        services.AddEndpointsApiExplorer();
+        services.AddEndpointsApiExplorer()
+                 .AddOpenApi("internal");
 
         return services;
     }
