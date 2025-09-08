@@ -44,7 +44,6 @@ public static class DependencyInjection
             options.UseSqlServer(connectionString));
 
         services
-            //.AddSwaggerServices()
             .AddMapsterConfig()
             .AddFluentValidationConfig();
 
@@ -53,7 +52,7 @@ public static class DependencyInjection
         services.AddScoped<IQuestionService, QuestionService>();
         services.AddScoped<IVoteService, VoteService>();
         services.AddScoped<IResultService, ResultService>();
-        //services.AddScoped<ICacheService, CacheService>();
+        services.AddScoped<ICacheService, CacheService>();
         services.AddScoped<IEmailSender, EmailService>();
         services.AddScoped<INotificationService, NotificationService>();
         services.AddScoped<IUserService, UserService>();
@@ -65,7 +64,10 @@ public static class DependencyInjection
         services.AddHttpContextAccessor();
         services.AddBackgroundJobsConfig(configuration);
 
-        services.Configure<MailSettings>(configuration.GetSection(nameof(MailSettings)));
+        services.AddOptions<MailSettings>()
+            .BindConfiguration(nameof(MailSettings))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
         services.AddHealthChecks()
             .AddSqlServer(name: "database", connectionString: connectionString)
@@ -74,7 +76,6 @@ public static class DependencyInjection
             .AddUrlGroup(name: "google.Api", uri: new Uri("https://www.google.com"), tags: ["api"])
             .AddUrlGroup(name: "meta.Api", uri: new Uri("https://www.facebook.com"), tags: ["api"])
             .AddCheck<MailProviderHealthCheck>(name: "mail_provider");
-          //.AddDbContextCheck<ApplicationDbContext>(name:"database");
 
         services.AddRateLimitingConfig();
         services.AddApiVersioning(options=>
@@ -91,10 +92,6 @@ public static class DependencyInjection
         });
         services.AddEndpointsApiExplorer()
                 .AddOpenApiServices();
-                 //.AddOpenApi(options =>
-                 //{
-                 //    options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
-                 //});
 
         return services;
     }
@@ -114,16 +111,6 @@ public static class DependencyInjection
 
         return services;
     }
-
-    //private static IServiceCollection AddSwaggerServices(this IServiceCollection services)
-    //{
-    //    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    //    services.AddEndpointsApiExplorer();
-    //    services.AddSwaggerGen();
-
-    //    return services;
-    //}
-
     private static IServiceCollection AddMapsterConfig(this IServiceCollection services)
     {
         var mappingConfig = TypeAdapterConfig.GlobalSettings;
@@ -153,10 +140,8 @@ public static class DependencyInjection
         services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
         services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 
-
         services.AddSingleton<IJwtProvider, JwtProvider>();
 
-        //services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
         services.AddOptions<JwtOptions>()
             .BindConfiguration(JwtOptions.SectionName)
             .ValidateDataAnnotations()
