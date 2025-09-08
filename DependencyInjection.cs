@@ -70,7 +70,7 @@ public static class DependencyInjection
             .ValidateOnStart();
 
         services.AddHealthChecks()
-            .AddSqlServer(name: "database", connectionString: connectionString)
+            .AddSqlServer(name: "database", connectionString: connectionString!)
             .AddHangfire(options => { options.MinimumAvailableServers = 1; })
             .AddUrlGroup(name: "VoteHub.Api", uri: new Uri("https://github.com/safaamohamed225"))
             .AddUrlGroup(name: "google.Api", uri: new Uri("https://www.google.com"), tags: ["api"])

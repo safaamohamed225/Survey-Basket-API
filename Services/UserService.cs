@@ -15,7 +15,7 @@ namespace SurveyBasket.Services
                    on u.Id equals ur.UserId
                    join r in _context.Roles
                    on ur.RoleId equals r.Id into roles
-                   where !roles.Any(r => r.Name == DefaultRoles.Member)
+                   where !roles.Any(r => r.Name == DefaultRoles.Member.Name)
                    select new
                    {
                        u.Id,

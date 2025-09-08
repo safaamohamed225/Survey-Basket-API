@@ -186,7 +186,7 @@ public class AuthService(UserManager<ApplicationUser> userManager,
         var result = await _userManager.ConfirmEmailAsync(user, code);
         if (result.Succeeded)
         {
-            await _userManager.AddToRoleAsync(user, DefaultRoles.Member);
+            await _userManager.AddToRoleAsync(user, DefaultRoles.Member.Name);
             return Result.Success();
         }
 
