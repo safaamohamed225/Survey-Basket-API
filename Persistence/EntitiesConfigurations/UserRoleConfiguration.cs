@@ -8,7 +8,7 @@ namespace SurveyBasket.Persistence.EntitiesConfigurations
         {
             builder.HasData(new IdentityUserRole<string>
             {
-                UserId = DefaultUsers.AdminId,
+                UserId = DefaultUsers.Admin.Id,
                 RoleId = DefaultRoles.Admin.Id
             });
         }
