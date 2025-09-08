@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using SurveyBasket.Abstractions.Consts;
 using SurveyBasket.Authentication.Filters;
 using SurveyBasket.Health;
+using SurveyBasket.OpenApiTransformers;
 using SurveyBasket.Settings;
 
 using System.Text;
@@ -90,16 +91,7 @@ public static class DependencyInjection
         services.AddEndpointsApiExplorer()
                  .AddOpenApi(options =>
                  {
-                     options.AddDocumentTransformer((document, context, cancellationToken) =>
-                     {
-                         document.Info = new()
-                         {
-                             Title = "Checkout API",
-                             Version = "v1",
-                             Description = "API for processing checkouts from cart."
-                         };
-                         return Task.CompletedTask;
-                     });
+                     options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
                  });
 
         return services;
