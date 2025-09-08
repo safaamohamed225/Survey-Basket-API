@@ -108,15 +108,7 @@ public static class DependencyInjection
             services.AddOpenApi(description.GroupName, options =>
             {
                 options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
-                options.AddDocumentTransformer((document, context, cancellationToken) => {
-                    document.Info = new()
-                    {
-                        Title = "Survey Basket API",
-                        Version = description.ApiVersion.ToString(),
-                        Description = $"API Description.{(description.IsDeprecated ? "This API version has been deprecated." : string.Empty)}"
-                    };
-                    return Task.CompletedTask;
-                });
+                options.AddDocumentTransformer(new ApiVersioningTransformer(description));
             });
         }
 
