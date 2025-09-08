@@ -297,15 +297,6 @@ public class AuthService(UserManager<ApplicationUser> userManager,
     private async Task<(IEnumerable<string> roles, IEnumerable<string> permissions)> GetUserRolesAndPermissions(ApplicationUser user, CancellationToken cancellationToken)
     {
         var userRoles = await _userManager.GetRolesAsync(user);
-        //var userPermissions = await _context.Roles
-        //    .Join(_context.RoleClaims,
-        //    role => role.Id,
-        //    claim => claim.RoleId,
-        //    (role, claim) => new { role, claim }
-        //    ).Where(x => userRoles.Contains(x.role.Name!))
-        //    .Select(x => x.claim.ClaimValue!)
-        //    .Distinct()
-        //    .ToListAsync(cancellationToken);
 
         var userPermissions = await (from role in _context.Roles
                                      join roleClaim in _context.RoleClaims on role.Id equals roleClaim.RoleId
