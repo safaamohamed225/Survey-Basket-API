@@ -1,5 +1,6 @@
 ﻿
 using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -89,14 +90,38 @@ public static class DependencyInjection
             options.SubstituteApiVersionInUrl = true;
         });
         services.AddEndpointsApiExplorer()
-                 .AddOpenApi(options =>
-                 {
-                     options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
-                 });
+                .AddOpenApiServices();
+                 //.AddOpenApi(options =>
+                 //{
+                 //    options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+                 //});
 
         return services;
     }
+    private static IServiceCollection AddOpenApiServices(this IServiceCollection services)
+    {
+        var serviceProvider = services.BuildServiceProvider();
+        var apiVersionDescriptionProvider = serviceProvider.GetRequiredService<IApiVersionDescriptionProvider>();
 
+        foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+        {
+            services.AddOpenApi(description.GroupName, options =>
+            {
+                options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+                options.AddDocumentTransformer((document, context, cancellationToken) => {
+                    document.Info = new()
+                    {
+                        Title = "Survey Basket API",
+                        Version = description.ApiVersion.ToString(),
+                        Description = $"API Description.{(description.IsDeprecated ? "This API version has been deprecated." : string.Empty)}"
+                    };
+                    return Task.CompletedTask;
+                });
+            });
+        }
+
+        return services;
+    }
 
     //private static IServiceCollection AddSwaggerServices(this IServiceCollection services)
     //{
