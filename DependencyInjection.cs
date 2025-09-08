@@ -88,7 +88,19 @@ public static class DependencyInjection
             options.SubstituteApiVersionInUrl = true;
         });
         services.AddEndpointsApiExplorer()
-                 .AddOpenApi();
+                 .AddOpenApi(options =>
+                 {
+                     options.AddDocumentTransformer((document, context, cancellationToken) =>
+                     {
+                         document.Info = new()
+                         {
+                             Title = "Checkout API",
+                             Version = "v1",
+                             Description = "API for processing checkouts from cart."
+                         };
+                         return Task.CompletedTask;
+                     });
+                 });
 
         return services;
     }
@@ -171,11 +183,6 @@ public static class DependencyInjection
 
         });
 
-        services.AddAuthorization(options =>
-        {
-            options.AddPolicy("ApiAdminPolicy", policy =>
-                policy.RequireRole(DefaultRoles.Admin));
-        }); 
         return services;
     }
 
