@@ -24,8 +24,6 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
-    //app.UseSwagger();
-    //app.UseSwaggerUI();
 }
 
 app.UseSerilogRequestLogging();
