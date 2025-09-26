@@ -1,9 +1,50 @@
 # VoteHub API 📊
 
+## 🛠️ Tech Stack
+
+### 🔹 Backend
 [![.NET](https://img.shields.io/badge/.NET-9.0-purple.svg)](https://dotnet.microsoft.com/download)
 [![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-9.0-blue.svg)](https://docs.microsoft.com/en-us/aspnet/core/)
-[![Entity Framework](https://img.shields.io/badge/Entity%20Framework-Core-orange.svg)](https://docs.microsoft.com/en-us/ef/core/)
+[![ASP.NET Core Web API](https://img.shields.io/badge/ASP.NET-Core%20Web%20API-blueviolet.svg)](https://learn.microsoft.com/en-us/aspnet/core/web-api)
+[![Entity Framework Core](https://img.shields.io/badge/Entity%20Framework-Core-orange.svg)](https://docs.microsoft.com/en-us/ef/core/)
+[![LINQ](https://img.shields.io/badge/LINQ-Query-blue.svg)](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/)
+[![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927.svg?logo=microsoft-sql-server&logoColor=white)](https://www.microsoft.com/en-us/sql-server)
+
+---
+
+### 🔹 Security
+[![ASP.NET Identity](https://img.shields.io/badge/ASP.NET-Identity-2C3E50.svg)](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity)
+[![JWT Authentication](https://img.shields.io/badge/JWT-Authentication-000000.svg?logo=jsonwebtokens)](https://jwt.io/)
+[![Refresh Token](https://img.shields.io/badge/Token-Refresh-lightgrey.svg)](#)
+[![Roles & Permissions](https://img.shields.io/badge/Role%20&%20Permission-Management-yellowgreen.svg)](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles)
+[![CORS](https://img.shields.io/badge/CORS-Enabled-informational.svg)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+
+---
+
+### 🔹 Architecture & Patterns
+[![Repository Pattern](https://img.shields.io/badge/Repository-Pattern-orange.svg)](https://martinfowler.com/eaaCatalog/repository.html)
+[![Unit of Work](https://img.shields.io/badge/Unit%20of%20Work-Pattern-lightgrey.svg)](https://martinfowler.com/eaaCatalog/unitOfWork.html)
+[![Dependency Injection](https://img.shields.io/badge/Dependency-Injection-6DB33F.svg)](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection)
+[![AutoMapper](https://img.shields.io/badge/AutoMapper-Tool-ff69b4.svg)](https://automapper.org/)
+
+---
+
+### 🔹 Tools & Features
+[![Error Handling](https://img.shields.io/badge/Exception%20&%20Error-Handling-red.svg)](#)
+[![Hangfire](https://img.shields.io/badge/Hangfire-Background%20Jobs-5C2D91.svg)](https://www.hangfire.io/)
+[![OpenAPI](https://img.shields.io/badge/OpenAPI-Swagger-85EA2D.svg?logo=swagger&logoColor=black)](https://swagger.io/specification/)
+[![MailKit](https://img.shields.io/badge/MailKit-Email%20Service-0078D4.svg)](https://github.com/jstedfast/MailKit)
+[![Caching](https://img.shields.io/badge/Caching-Enabled-yellow.svg)](#)
+[![Pagination](https://img.shields.io/badge/Pagination-Supported-blue.svg)](#)
+[![Filtering & Sorting](https://img.shields.io/badge/Filtering%20&%20Sorting-Supported-lightblue.svg)](#)
+[![Health Monitoring](https://img.shields.io/badge/Health-Monitoring-brightgreen.svg)](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks)
+[![Logging](https://img.shields.io/badge/Logging-Enabled-9cf.svg)](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/)
+
+---
+
+### 🔹 License
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 
 A robust and scalable RESTful API built with ASP.NET Core for comprehensive poll management and voting systems. Features enterprise-grade security, role-based access control, and a clean architecture designed for maintainability and extensibility.
 
