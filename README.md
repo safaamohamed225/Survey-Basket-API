@@ -112,18 +112,6 @@ A robust and scalable RESTful API built with ASP.NET Core for comprehensive poll
 - **AutoMapper** for object mapping
 - **Comprehensive error handling** and logging
 
-## 🛠️ Tech Stack
-
-| Technology | Purpose |
-|------------|---------|
-| **ASP.NET Core 9.0** | Web API Framework |
-| **Entity Framework Core** | ORM and Database Access |
-| **ASP.NET Core Identity** | User Management & Authentication |
-| **SQL Server** | Primary Database |
-| **JWT Bearer** | Token-based Authentication |
-| **AutoMapper** | Object-Object Mapping |
-| **Swagger/OpenAPI** | API Documentation |
-
 ## 📁 Project Structure
 
 ```
